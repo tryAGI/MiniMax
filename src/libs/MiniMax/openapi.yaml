@@ -1,0 +1,891 @@
+openapi: 3.0.3
+info:
+  title: MiniMax Platform API
+  description: |
+    MiniMax Platform API for AI-powered video generation (Hailuo),
+    music generation, text-to-speech (T2A v2), voice cloning, and file
+    management.
+
+    **Scope:** This SDK covers video, music, TTS, voice cloning, and file
+    upload/retrieval endpoints. LLM chat completions (OpenAI-compatible
+    `/v1/text/chatcompletion_v2`) are **excluded** — use
+    `tryAGI.OpenAI.CustomProviders.Minimax(...)` instead.
+
+    **Authentication:** `Authorization: Bearer <API_KEY>` with an API key from
+    the [MiniMax Platform](https://platform.minimax.io/user-center/basic-information/interface-key).
+
+    **Base URL:** `https://api.minimax.io` (global) or `https://api.minimaxi.chat`
+    for China mainland. Default in this SDK is the global endpoint.
+  version: "1.0.0"
+  contact:
+    name: MiniMax Platform
+    url: https://platform.minimax.io
+  license:
+    name: Proprietary
+    url: https://platform.minimax.io
+
+servers:
+  - url: https://api.minimax.io
+    description: MiniMax Global Production API
+  - url: https://api.minimaxi.chat
+    description: MiniMax China Mainland API
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Video
+    description: Video generation via Hailuo models (text-to-video, image-to-video, subject reference) with async task polling.
+  - name: Music
+    description: Music generation (text-to-music, music cover) — returns hex-encoded or URL audio.
+  - name: Speech
+    description: Text-to-speech synthesis (T2A v2) and voice cloning.
+  - name: Files
+    description: File upload/retrieval for assets used by video, music, and voice-clone endpoints.
+
+paths:
+  # -------------------------------------------------------------------------
+  # Video Generation (async task pattern)
+  # -------------------------------------------------------------------------
+  /v1/video_generation:
+    post:
+      tags: [Video]
+      operationId: createVideoGenerationTask
+      summary: Create a video generation task.
+      description: |
+        Creates an asynchronous video generation task using Hailuo video
+        models. Returns a `task_id` that must be polled via
+        `GET /v1/query/video_generation` until the task succeeds or fails.
+        Once complete, the resulting file is retrieved via
+        `GET /v1/files/retrieve`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoGenerationRequest'
+      responses:
+        '200':
+          description: Task created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoGenerationResponse'
+
+  /v1/query/video_generation:
+    get:
+      tags: [Video]
+      operationId: getVideoGenerationTask
+      summary: Query a video generation task.
+      description: |
+        Polls a video generation task by `task_id`. The response `status`
+        progresses through `Preparing`, `Queueing`, `Processing`,
+        `Success`, `Fail`. When `Success`, `file_id` can be used with
+        `GET /v1/files/retrieve`.
+      parameters:
+        - in: query
+          name: task_id
+          required: true
+          schema:
+            type: string
+          description: Task ID returned from `POST /v1/video_generation`.
+      responses:
+        '200':
+          description: Task status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoTaskStatusResponse'
+
+  # -------------------------------------------------------------------------
+  # Music Generation
+  # -------------------------------------------------------------------------
+  /v1/music_generation:
+    post:
+      tags: [Music]
+      operationId: createMusicGeneration
+      summary: Generate music.
+      description: |
+        Generates music using MiniMax music models (`music-2.6`, `music-cover`,
+        `music-2.6-free`, `music-cover-free`). The response contains either
+        hex-encoded audio (`output_format=hex`, default) or a downloadable URL
+        (`output_format=url`).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MusicGenerationRequest'
+      responses:
+        '200':
+          description: Music generation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicGenerationResponse'
+
+  # -------------------------------------------------------------------------
+  # Text-to-Speech (T2A V2)
+  # -------------------------------------------------------------------------
+  /v1/t2a_v2:
+    post:
+      tags: [Speech]
+      operationId: createTextToSpeech
+      summary: Synthesize speech (T2A v2).
+      description: |
+        Converts text to speech using MiniMax TTS models
+        (`speech-2.8-hd`, `speech-2.8-turbo`, `speech-2.6-hd`,
+        `speech-2.6-turbo`, `speech-02-hd`, `speech-02-turbo`). Supports up
+        to 10,000 characters, 40 languages, and 7 emotional tones.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToSpeechRequest'
+      responses:
+        '200':
+          description: TTS audio output.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextToSpeechResponse'
+
+  # -------------------------------------------------------------------------
+  # Voice Clone
+  # -------------------------------------------------------------------------
+  /v1/voice_clone:
+    post:
+      tags: [Speech]
+      operationId: createVoiceClone
+      summary: Create a voice clone.
+      description: |
+        Creates a custom voice clone from a previously uploaded reference
+        audio file. First upload an MP3/M4A/WAV file (10s-5min, clear
+        speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then
+        pass the returned `file_id` here.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceCloneRequest'
+      responses:
+        '200':
+          description: Voice clone result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceCloneResponse'
+
+  # -------------------------------------------------------------------------
+  # Files
+  # -------------------------------------------------------------------------
+  /v1/files/upload:
+    post:
+      tags: [Files]
+      operationId: uploadFile
+      summary: Upload a file.
+      description: |
+        Uploads a file (audio, image, or video) for subsequent use in
+        voice-clone, music-cover, or video-generation workflows. Returns a
+        `file_id` that can be referenced in other endpoints.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileUploadRequest'
+      responses:
+        '200':
+          description: File upload response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileUploadResponse'
+
+  /v1/files/retrieve:
+    get:
+      tags: [Files]
+      operationId: retrieveFile
+      summary: Retrieve a file.
+      description: |
+        Fetches metadata (including a temporary `download_url`) for a
+        previously uploaded or generated file.
+      parameters:
+        - in: query
+          name: file_id
+          required: true
+          schema:
+            type: string
+          description: File ID returned from uploads or generation tasks.
+      responses:
+        '200':
+          description: File metadata + download URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileRetrieveResponse'
+
+  /v1/files/list:
+    get:
+      tags: [Files]
+      operationId: listFiles
+      summary: List files.
+      description: |
+        Lists files previously uploaded or generated by the account,
+        optionally filtered by purpose.
+      parameters:
+        - in: query
+          name: purpose
+          required: false
+          schema:
+            type: string
+          description: Filter by purpose (e.g., `voice_clone`, `retrieval`).
+      responses:
+        '200':
+          description: List of files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileListResponse'
+
+  /v1/files/delete:
+    post:
+      tags: [Files]
+      operationId: deleteFile
+      summary: Delete a file.
+      description: Deletes a previously uploaded file.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileDeleteRequest'
+      responses:
+        '200':
+          description: Deletion result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileDeleteResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key authentication using Bearer token.
+
+  schemas:
+    # -------------------------------------------------------------------------
+    # Common
+    # -------------------------------------------------------------------------
+    BaseResponse:
+      type: object
+      description: Common status envelope returned by every MiniMax API call.
+      properties:
+        status_code:
+          type: integer
+          description: 0 for success. Non-zero indicates an error.
+        status_msg:
+          type: string
+          description: Human-readable status message.
+
+    # -------------------------------------------------------------------------
+    # Video
+    # -------------------------------------------------------------------------
+    VideoSubjectReference:
+      type: object
+      description: Subject reference for character-consistent video generation.
+      properties:
+        type:
+          type: string
+          description: Reference type (e.g., `character`).
+          enum:
+            - character
+        image:
+          type: array
+          description: Array of reference image URLs or base64 strings (at most 1 item today).
+          items:
+            type: string
+
+    VideoGenerationRequest:
+      type: object
+      required:
+        - model
+      properties:
+        model:
+          type: string
+          description: |
+            Model identifier. Popular choices:
+            `MiniMax-Hailuo-2.3`, `MiniMax-Hailuo-2.3-Fast`,
+            `MiniMax-Hailuo-02`, `T2V-01-Director`, `I2V-01-Director`,
+            `S2V-01`.
+        prompt:
+          type: string
+          description: Natural-language description of the desired video motion and content.
+        prompt_optimizer:
+          type: boolean
+          description: Whether to auto-optimize the prompt for better results.
+          default: true
+        first_frame_image:
+          type: string
+          description: Starting frame image URL or data URI (image-to-video and start-end modes).
+        last_frame_image:
+          type: string
+          description: Ending frame image URL or data URI (start-end mode only).
+        subject_reference:
+          type: array
+          description: Subject references for subject-reference generation (S2V).
+          items:
+            $ref: '#/components/schemas/VideoSubjectReference'
+        duration:
+          type: integer
+          description: Video length in seconds (typically 6 or 10 depending on model).
+        resolution:
+          type: string
+          description: Output resolution.
+          enum:
+            - 512P
+            - 768P
+            - 1080P
+        callback_url:
+          type: string
+          description: Optional webhook URL invoked when the task completes.
+        aigc_watermark:
+          type: boolean
+          description: Whether to embed an AIGC watermark in the output.
+
+    VideoGenerationData:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Task ID to poll via `GET /v1/query/video_generation`.
+
+    VideoGenerationResponse:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Task ID to poll via `GET /v1/query/video_generation`.
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    VideoTaskStatus:
+      type: string
+      description: Task lifecycle status.
+      enum:
+        - Preparing
+        - Queueing
+        - Processing
+        - Success
+        - Fail
+
+    VideoTaskStatusResponse:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Task ID passed in.
+        status:
+          $ref: '#/components/schemas/VideoTaskStatus'
+        file_id:
+          type: string
+          description: File ID of the generated video (only set when `status=Success`).
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    # -------------------------------------------------------------------------
+    # Music
+    # -------------------------------------------------------------------------
+    MusicAudioSetting:
+      type: object
+      description: Audio output configuration for music generation.
+      properties:
+        sample_rate:
+          type: integer
+          description: Audio sample rate in Hz (e.g., 44100).
+        bitrate:
+          type: integer
+          description: Bitrate in bits/sec (e.g., 256000).
+        format:
+          type: string
+          description: Audio format.
+          enum:
+            - mp3
+            - wav
+            - pcm
+
+    MusicGenerationRequest:
+      type: object
+      required:
+        - model
+      properties:
+        model:
+          type: string
+          description: |
+            Music model. Supported values:
+            `music-2.6`, `music-cover`, `music-2.6-free`, `music-cover-free`,
+            `music-2.0`.
+        prompt:
+          type: string
+          description: Music description (style, mood, scenario) — 1 to 2000 characters.
+        lyrics:
+          type: string
+          description: |
+            Song lyrics with `\n` line breaks. Supports structure tags such as
+            `[Verse]`, `[Chorus]`, `[Bridge]`. 1 to 3500 characters.
+        stream:
+          type: boolean
+          description: Whether to stream the output (server-sent events).
+          default: false
+        output_format:
+          type: string
+          description: Output format — `hex` returns hex-encoded bytes inline, `url` returns a downloadable link.
+          enum:
+            - hex
+            - url
+          default: hex
+        audio_setting:
+          $ref: '#/components/schemas/MusicAudioSetting'
+        lyrics_optimizer:
+          type: boolean
+          description: Whether to auto-generate lyrics from the prompt.
+          default: false
+        is_instrumental:
+          type: boolean
+          description: Whether to generate instrumental music (no vocals).
+          default: false
+        audio_url:
+          type: string
+          description: Reference audio URL for `music-cover` models.
+        audio_base64:
+          type: string
+          description: Base64-encoded reference audio for `music-cover` models.
+
+    MusicGenerationData:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: 1 when partial, 2 when complete.
+        audio:
+          type: string
+          description: Hex-encoded audio bytes (when `output_format=hex`) or URL (when `output_format=url`).
+
+    MusicGenerationExtraInfo:
+      type: object
+      properties:
+        music_duration:
+          type: integer
+          description: Duration of the generated music in milliseconds.
+        music_sample_rate:
+          type: integer
+          description: Sample rate in Hz.
+        music_channel:
+          type: integer
+          description: Number of audio channels (1=mono, 2=stereo).
+        bitrate:
+          type: integer
+          description: Bitrate in bits/sec.
+        music_size:
+          type: integer
+          description: Size of the output audio in bytes.
+
+    MusicGenerationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/MusicGenerationData'
+        extra_info:
+          $ref: '#/components/schemas/MusicGenerationExtraInfo'
+        trace_id:
+          type: string
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    # -------------------------------------------------------------------------
+    # Text-to-Speech (T2A V2)
+    # -------------------------------------------------------------------------
+    TtsVoiceSetting:
+      type: object
+      description: Voice configuration for TTS.
+      properties:
+        voice_id:
+          type: string
+          description: |
+            Target voice identifier. Can be a system voice (e.g.,
+            `male-qn-qingse`) or a custom cloned voice ID.
+        speed:
+          type: number
+          format: float
+          description: Speech rate, 0.5–2.0. Default 1.0.
+          default: 1.0
+        vol:
+          type: number
+          format: float
+          description: Volume, (0, 10]. Default 1.0.
+          default: 1.0
+        pitch:
+          type: integer
+          description: Pitch adjustment, -12 to 12. Default 0.
+          default: 0
+        emotion:
+          type: string
+          description: Emotional tone.
+          enum:
+            - happy
+            - sad
+            - angry
+            - fearful
+            - disgusted
+            - surprised
+            - calm
+            - neutral
+        latex_read:
+          type: boolean
+          description: Whether to parse LaTeX formulas in the input text.
+          default: false
+        english_normalization:
+          type: boolean
+          description: Whether to normalize English text (numbers, dates, etc.).
+          default: false
+
+    TtsAudioSetting:
+      type: object
+      description: Audio output configuration for TTS.
+      properties:
+        sample_rate:
+          type: integer
+          description: Sample rate in Hz. Supported — 8000, 16000, 22050, 24000, 32000, 44100.
+          default: 32000
+        bitrate:
+          type: integer
+          description: Bitrate in bits/sec (MP3 only). Supported — 32000, 64000, 128000, 256000.
+          default: 128000
+        format:
+          type: string
+          description: Output audio format.
+          enum:
+            - mp3
+            - pcm
+            - flac
+            - wav
+          default: mp3
+        channel:
+          type: integer
+          description: 1 (mono) or 2 (stereo). Default 1.
+          default: 1
+        force_cbr:
+          type: boolean
+          description: Force constant bitrate MP3 encoding (streaming only).
+          default: false
+
+    TtsPronunciationDict:
+      type: object
+      description: Custom pronunciation rules.
+      properties:
+        tone:
+          type: array
+          description: |
+            Pronunciation rewrites in the form `"source/target"` — e.g.,
+            `"omg/oh my god"`.
+          items:
+            type: string
+
+    TtsVoiceModify:
+      type: object
+      description: Voice effect/modulation settings.
+      properties:
+        pitch:
+          type: integer
+          description: Pitch adjustment, -100 to 100.
+        intensity:
+          type: integer
+          description: Intensity adjustment, -100 to 100.
+        timbre:
+          type: integer
+          description: Timbre adjustment, -100 to 100.
+        sound_effects:
+          type: string
+          description: Preset sound effect.
+          enum:
+            - spacious_echo
+            - auditorium_echo
+            - lofi_telephone
+            - robotic
+
+    TtsStreamOptions:
+      type: object
+      properties:
+        exclude_aggregated_audio:
+          type: boolean
+          description: Omit the aggregated-audio chunk at the end of the stream.
+
+    TimberWeight:
+      type: object
+      description: Voice mix entry (combine multiple voices with weights).
+      properties:
+        voice_id:
+          type: string
+        weight:
+          type: integer
+          description: Weight, 1-100.
+
+    TextToSpeechRequest:
+      type: object
+      required:
+        - model
+        - text
+        - voice_setting
+      properties:
+        model:
+          type: string
+          description: |
+            TTS model version: `speech-2.8-hd`, `speech-2.8-turbo`,
+            `speech-2.6-hd`, `speech-2.6-turbo`, `speech-02-hd`,
+            `speech-02-turbo`, `speech-01-hd`, `speech-01-turbo`.
+        text:
+          type: string
+          description: Input text, up to 10,000 characters. Use `\n` for paragraph breaks.
+        stream:
+          type: boolean
+          description: Whether to stream the output.
+          default: false
+        stream_options:
+          $ref: '#/components/schemas/TtsStreamOptions'
+        voice_setting:
+          $ref: '#/components/schemas/TtsVoiceSetting'
+        audio_setting:
+          $ref: '#/components/schemas/TtsAudioSetting'
+        pronunciation_dict:
+          $ref: '#/components/schemas/TtsPronunciationDict'
+        voice_modify:
+          $ref: '#/components/schemas/TtsVoiceModify'
+        timber_weights:
+          type: array
+          description: Mix multiple voices by weight (up to 4 entries).
+          items:
+            $ref: '#/components/schemas/TimberWeight'
+        language_boost:
+          type: string
+          description: |
+            Bias pronunciation toward a specific language, or `auto` to
+            auto-detect. Examples — `English`, `Chinese`, `Japanese`,
+            `Korean`, `auto`.
+        output_format:
+          type: string
+          description: Output format (non-streaming only).
+          enum:
+            - hex
+            - url
+          default: hex
+        subtitle_enable:
+          type: boolean
+          description: Whether to return subtitle files alongside the audio.
+          default: false
+
+    TtsExtraInfo:
+      type: object
+      properties:
+        audio_length:
+          type: integer
+          description: Duration in milliseconds.
+        audio_sample_rate:
+          type: integer
+        audio_size:
+          type: integer
+        bitrate:
+          type: integer
+        word_count:
+          type: integer
+        invisible_character_ratio:
+          type: number
+          format: float
+        usage_characters:
+          type: integer
+          description: Billable character count.
+        audio_format:
+          type: string
+        audio_channel:
+          type: integer
+
+    TtsData:
+      type: object
+      properties:
+        audio:
+          type: string
+          description: Hex-encoded audio bytes (or URL if `output_format=url`).
+        status:
+          type: integer
+          description: 1 when partial, 2 when complete.
+        subtitle_file:
+          type: string
+          description: URL of the generated subtitle file (when `subtitle_enable=true`).
+
+    TextToSpeechResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TtsData'
+        extra_info:
+          $ref: '#/components/schemas/TtsExtraInfo'
+        trace_id:
+          type: string
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    # -------------------------------------------------------------------------
+    # Voice Clone
+    # -------------------------------------------------------------------------
+    VoiceClonePrompt:
+      type: object
+      description: Reference prompt-audio pair used to refine the cloned voice.
+      properties:
+        prompt_audio:
+          type: string
+          description: File ID of a previously uploaded prompt-audio file.
+        prompt_text:
+          type: string
+          description: Transcript of the prompt audio.
+
+    VoiceCloneRequest:
+      type: object
+      required:
+        - file_id
+        - voice_id
+      properties:
+        file_id:
+          type: string
+          description: File ID returned from `POST /v1/files/upload` with `purpose=voice_clone`.
+        voice_id:
+          type: string
+          description: |
+            Custom voice ID to assign to the clone (8–256 characters,
+            alphanumeric, starts with a letter).
+        need_noise_reduction:
+          type: boolean
+          description: Whether to apply noise reduction to the reference audio.
+          default: false
+        need_volume_normalization:
+          type: boolean
+          description: Whether to normalize the volume of the reference audio.
+          default: false
+        text:
+          type: string
+          description: Optional sample text to synthesize with the new voice to confirm cloning.
+        model:
+          type: string
+          description: TTS model to use for the sample synthesis (e.g., `speech-2.6-hd`).
+        accuracy:
+          type: number
+          format: float
+          description: Cloning accuracy threshold, 0.0–1.0.
+        clone_prompt:
+          $ref: '#/components/schemas/VoiceClonePrompt'
+        aigc_watermark:
+          type: boolean
+          description: Whether to embed an AIGC watermark on the generated sample audio.
+
+    VoiceCloneResponse:
+      type: object
+      properties:
+        input_sensitive:
+          type: boolean
+          description: Whether the reference audio contained sensitive content.
+        input_sensitive_type:
+          type: integer
+          description: Sensitive content category (if any).
+        demo_audio:
+          type: string
+          description: URL of the synthesized demo audio (when `text` was supplied).
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    # -------------------------------------------------------------------------
+    # Files
+    # -------------------------------------------------------------------------
+    FileUploadRequest:
+      type: object
+      required:
+        - purpose
+        - file
+      properties:
+        purpose:
+          type: string
+          description: |
+            File purpose — `voice_clone`, `prompt_audio`, `retrieval`,
+            `fine-tune`, `fine-tune-results`.
+        file:
+          type: string
+          format: binary
+          description: The file to upload (MP3, M4A, WAV, image, video, etc.).
+
+    FileInfo:
+      type: object
+      properties:
+        file_id:
+          type: integer
+          format: int64
+          description: Unique file identifier.
+        bytes:
+          type: integer
+          description: File size in bytes.
+        created_at:
+          type: integer
+          format: int64
+          description: Creation timestamp (Unix seconds).
+        filename:
+          type: string
+        purpose:
+          type: string
+        download_url:
+          type: string
+          description: Temporary download URL (only present on retrieve).
+
+    FileUploadResponse:
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/FileInfo'
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    FileRetrieveResponse:
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/FileInfo'
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    FileListResponse:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileInfo'
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'
+
+    FileDeleteRequest:
+      type: object
+      required:
+        - file_id
+      properties:
+        file_id:
+          type: integer
+          format: int64
+          description: File ID to delete.
+
+    FileDeleteResponse:
+      type: object
+      properties:
+        file_id:
+          type: integer
+          format: int64
+        base_resp:
+          $ref: '#/components/schemas/BaseResponse'

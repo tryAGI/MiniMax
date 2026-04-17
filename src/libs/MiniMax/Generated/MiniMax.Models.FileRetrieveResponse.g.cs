@@ -1,0 +1,54 @@
+
+#nullable enable
+
+namespace MiniMax
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed partial class FileRetrieveResponse
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("file")]
+        public global::MiniMax.FileInfo? File { get; set; }
+
+        /// <summary>
+        /// Common status envelope returned by every MiniMax API call.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("base_resp")]
+        public global::MiniMax.BaseResponse? BaseResp { get; set; }
+
+        /// <summary>
+        /// Additional properties that are not explicitly defined in the schema
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonExtensionData]
+        public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileRetrieveResponse" /> class.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="baseResp">
+        /// Common status envelope returned by every MiniMax API call.
+        /// </param>
+#if NET7_0_OR_GREATER
+        [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
+#endif
+        public FileRetrieveResponse(
+            global::MiniMax.FileInfo? file,
+            global::MiniMax.BaseResponse? baseResp)
+        {
+            this.File = file;
+            this.BaseResp = baseResp;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileRetrieveResponse" /> class.
+        /// </summary>
+        public FileRetrieveResponse()
+        {
+        }
+    }
+}
