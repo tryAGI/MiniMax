@@ -16,7 +16,7 @@
 <div class="docs-feature-grid">
   <div class="docs-feature-card">
     <h3>Generated from the source spec</h3>
-    <p>Built from <a href="https://example.com/placeholder.yaml">MiniMax's OpenAPI definition</a> so the SDK stays close to the upstream API surface.</p>
+    <p>Built from a hand-maintained OpenAPI definition derived from <a href="https://platform.minimax.io/docs">MiniMax's published API documentation</a> so the SDK stays close to the upstream API surface.</p>
   </div>
   <div class="docs-feature-card">
     <h3>Auto-updated</h3>
