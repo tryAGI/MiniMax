@@ -29,6 +29,23 @@ namespace MiniMax
         /// Once complete, the resulting file is retrieved via<br/>
         /// `GET /v1/files/retrieve`.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::MiniMax.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.VideoGenerationResponse>> CreateVideoGenerationTaskAsResponseAsync(
+
+            global::MiniMax.VideoGenerationRequest request,
+            global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create a video generation task.<br/>
+        /// Creates an asynchronous video generation task using Hailuo video<br/>
+        /// models. Returns a `task_id` that must be polled via<br/>
+        /// `GET /v1/query/video_generation` until the task succeeds or fails.<br/>
+        /// Once complete, the resulting file is retrieved via<br/>
+        /// `GET /v1/files/retrieve`.
+        /// </summary>
         /// <param name="model">
         /// Model identifier. Popular choices:<br/>
         /// `MiniMax-Hailuo-2.3`, `MiniMax-Hailuo-2.3-Fast`,<br/>
