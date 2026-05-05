@@ -27,6 +27,22 @@ namespace MiniMax
         /// `speech-2.6-turbo`, `speech-02-hd`, `speech-02-turbo`). Supports up<br/>
         /// to 10,000 characters, 40 languages, and 7 emotional tones.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::MiniMax.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.TextToSpeechResponse>> CreateTextToSpeechAsResponseAsync(
+
+            global::MiniMax.TextToSpeechRequest request,
+            global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Synthesize speech (T2A v2).<br/>
+        /// Converts text to speech using MiniMax TTS models<br/>
+        /// (`speech-2.8-hd`, `speech-2.8-turbo`, `speech-2.6-hd`,<br/>
+        /// `speech-2.6-turbo`, `speech-02-hd`, `speech-02-turbo`). Supports up<br/>
+        /// to 10,000 characters, 40 languages, and 7 emotional tones.
+        /// </summary>
         /// <param name="model">
         /// TTS model version: `speech-2.8-hd`, `speech-2.8-turbo`,<br/>
         /// `speech-2.6-hd`, `speech-2.6-turbo`, `speech-02-hd`,<br/>
