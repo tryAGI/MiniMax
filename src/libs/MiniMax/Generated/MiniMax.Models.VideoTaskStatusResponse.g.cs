@@ -75,5 +75,6 @@ namespace MiniMax
         public VideoTaskStatusResponse()
         {
         }
+
     }
 }

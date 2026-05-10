@@ -41,5 +41,6 @@ namespace MiniMax
         public VideoGenerationData()
         {
         }
+
     }
 }

@@ -156,5 +156,6 @@ namespace MiniMax
         public MusicGenerationRequest()
         {
         }
+
     }
 }

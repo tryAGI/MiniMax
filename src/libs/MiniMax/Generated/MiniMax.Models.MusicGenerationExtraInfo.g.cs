@@ -85,5 +85,6 @@ namespace MiniMax
         public MusicGenerationExtraInfo()
         {
         }
+
     }
 }

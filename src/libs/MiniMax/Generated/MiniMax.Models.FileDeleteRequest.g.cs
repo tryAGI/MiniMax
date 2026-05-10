@@ -42,5 +42,6 @@ namespace MiniMax
         public FileDeleteRequest()
         {
         }
+
     }
 }

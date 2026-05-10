@@ -137,5 +137,6 @@ namespace MiniMax
         public VoiceCloneRequest()
         {
         }
+
     }
 }

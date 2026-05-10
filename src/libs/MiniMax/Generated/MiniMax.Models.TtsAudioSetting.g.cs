@@ -96,5 +96,6 @@ namespace MiniMax
         public TtsAudioSetting()
         {
         }
+
     }
 }

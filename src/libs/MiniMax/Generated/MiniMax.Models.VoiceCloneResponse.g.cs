@@ -74,5 +74,6 @@ namespace MiniMax
         public VoiceCloneResponse()
         {
         }
+
     }
 }
