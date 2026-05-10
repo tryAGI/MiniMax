@@ -53,5 +53,6 @@ namespace MiniMax
         public VideoSubjectReference()
         {
         }
+
     }
 }

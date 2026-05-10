@@ -120,5 +120,6 @@ namespace MiniMax
         public TtsVoiceSetting()
         {
         }
+
     }
 }

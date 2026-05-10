@@ -92,5 +92,6 @@ namespace MiniMax
         public FileInfo()
         {
         }
+
     }
 }
