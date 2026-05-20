@@ -56,7 +56,7 @@ namespace MiniMax
         /// <summary>
         /// File upload/retrieval for assets used by video, music, and voice-clone endpoints.
         /// </summary>
-        public FilesClient Files => new FilesClient(HttpClient, authorizations: Authorizations, options: Options)
+        public FilesClient Files => new FilesClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -66,7 +66,7 @@ namespace MiniMax
         /// <summary>
         /// Music generation (text-to-music, music cover) — returns hex-encoded or URL audio.
         /// </summary>
-        public MusicClient Music => new MusicClient(HttpClient, authorizations: Authorizations, options: Options)
+        public MusicClient Music => new MusicClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -76,7 +76,7 @@ namespace MiniMax
         /// <summary>
         /// Text-to-speech synthesis (T2A v2) and voice cloning.
         /// </summary>
-        public SpeechClient Speech => new SpeechClient(HttpClient, authorizations: Authorizations, options: Options)
+        public SpeechClient Speech => new SpeechClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -86,7 +86,7 @@ namespace MiniMax
         /// <summary>
         /// Video generation via Hailuo models (text-to-video, image-to-video, subject reference) with async task polling.
         /// </summary>
-        public VideoClient Video => new VideoClient(HttpClient, authorizations: Authorizations, options: Options)
+        public VideoClient Video => new VideoClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
             ReadResponseAsString = ReadResponseAsString,
             JsonSerializerContext = JsonSerializerContext,
@@ -144,6 +144,27 @@ namespace MiniMax
         }
 
         /// <summary>
+        /// Creates a new instance of the MiniMaxClient with explicit options but no base URL override.
+        /// Skips passing <c>baseUri</c> so the default base URL from the OpenAPI spec applies.
+        /// </summary>
+        /// <param name="httpClient">The HttpClient instance. If not provided, a new one will be created.</param>
+        /// <param name="authorizations">The authorizations to use for the requests.</param>
+        /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
+        /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
+        public MiniMaxClient(
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Collections.Generic.List<global::MiniMax.EndPointAuthorization>? authorizations,
+            global::MiniMax.AutoSDKClientOptions? options,
+            bool disposeHttpClient = true) : this(
+                httpClient,
+                baseUri: null,
+                authorizations,
+                options,
+                disposeHttpClient: disposeHttpClient)
+        {
+        }
+
+        /// <summary>
         /// Creates a new instance of the MiniMaxClient.
         /// If no httpClient is provided, a new one will be created.
         /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
@@ -154,10 +175,10 @@ namespace MiniMax
         /// <param name="options">Client-wide request defaults such as headers, query parameters, retries, and timeout.</param>
         /// <param name="disposeHttpClient">Dispose the HttpClient when the instance is disposed. True by default.</param>
         public MiniMaxClient(
-            global::System.Net.Http.HttpClient? httpClient = null,
-            global::System.Uri? baseUri = null,
-            global::System.Collections.Generic.List<global::MiniMax.EndPointAuthorization>? authorizations = null,
-            global::MiniMax.AutoSDKClientOptions? options = null,
+            global::System.Net.Http.HttpClient? httpClient,
+            global::System.Uri? baseUri,
+            global::System.Collections.Generic.List<global::MiniMax.EndPointAuthorization>? authorizations,
+            global::MiniMax.AutoSDKClientOptions? options,
             bool disposeHttpClient = true)
         {
 

@@ -27,6 +27,22 @@ namespace MiniMax
         /// speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then<br/>
         /// pass the returned `file_id` here.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::MiniMax.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.VoiceCloneResponse>> CreateVoiceCloneAsResponseAsync(
+
+            global::MiniMax.VoiceCloneRequest request,
+            global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create a voice clone.<br/>
+        /// Creates a custom voice clone from a previously uploaded reference<br/>
+        /// audio file. First upload an MP3/M4A/WAV file (10s-5min, clear<br/>
+        /// speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then<br/>
+        /// pass the returned `file_id` here.
+        /// </summary>
         /// <param name="fileId">
         /// File ID returned from `POST /v1/files/upload` with `purpose=voice_clone`.
         /// </param>

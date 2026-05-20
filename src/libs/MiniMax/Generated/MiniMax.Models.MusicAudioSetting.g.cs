@@ -64,5 +64,6 @@ namespace MiniMax
         public MusicAudioSetting()
         {
         }
+
     }
 }

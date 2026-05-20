@@ -52,5 +52,6 @@ namespace MiniMax
         public VideoGenerationResponse()
         {
         }
+
     }
 }

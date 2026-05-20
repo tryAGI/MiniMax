@@ -50,5 +50,6 @@ namespace MiniMax
         public TimberWeight()
         {
         }
+
     }
 }

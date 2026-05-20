@@ -178,5 +178,6 @@ namespace MiniMax
         public TextToSpeechRequest()
         {
         }
+
     }
 }

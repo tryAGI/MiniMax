@@ -68,5 +68,6 @@ namespace MiniMax
         public MusicGenerationResponse()
         {
         }
+
     }
 }

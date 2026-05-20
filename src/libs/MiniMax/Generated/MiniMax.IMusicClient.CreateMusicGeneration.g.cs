@@ -27,6 +27,22 @@ namespace MiniMax
         /// hex-encoded audio (`output_format=hex`, default) or a downloadable URL<br/>
         /// (`output_format=url`).
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::MiniMax.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.MusicGenerationResponse>> CreateMusicGenerationAsResponseAsync(
+
+            global::MiniMax.MusicGenerationRequest request,
+            global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate music.<br/>
+        /// Generates music using MiniMax music models (`music-2.6`, `music-cover`,<br/>
+        /// `music-2.6-free`, `music-cover-free`). The response contains either<br/>
+        /// hex-encoded audio (`output_format=hex`, default) or a downloadable URL<br/>
+        /// (`output_format=url`).
+        /// </summary>
         /// <param name="model">
         /// Music model. Supported values:<br/>
         /// `music-2.6`, `music-cover`, `music-2.6-free`, `music-cover-free`,<br/>
