@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class SpeechClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_CreateVoiceCloneServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateVoiceCloneSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -55,11 +42,7 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Create a voice clone.<br/>
-        /// Creates a custom voice clone from a previously uploaded reference<br/>
-        /// audio file. First upload an MP3/M4A/WAV file (10s-5min, clear<br/>
-        /// speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then<br/>
-        /// pass the returned `file_id` here.
+        /// Create a voice clone.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -81,11 +64,7 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Create a voice clone.<br/>
-        /// Creates a custom voice clone from a previously uploaded reference<br/>
-        /// audio file. First upload an MP3/M4A/WAV file (10s-5min, clear<br/>
-        /// speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then<br/>
-        /// pass the returned `file_id` here.
+        /// Create a voice clone.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -130,9 +109,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/voice_clone",
-                                baseUri: ResolveBaseUri(
-                                servers: s_CreateVoiceCloneServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -455,54 +432,43 @@ namespace MiniMax
             }
         }
         /// <summary>
-        /// Create a voice clone.<br/>
-        /// Creates a custom voice clone from a previously uploaded reference<br/>
-        /// audio file. First upload an MP3/M4A/WAV file (10s-5min, clear<br/>
-        /// speech) via `POST /v1/files/upload` with `purpose=voice_clone`, then<br/>
-        /// pass the returned `file_id` here.
+        /// Create a voice clone.
         /// </summary>
         /// <param name="fileId">
-        /// File ID returned from `POST /v1/files/upload` with `purpose=voice_clone`.
+        /// Reference audio file ID from file upload.
         /// </param>
         /// <param name="voiceId">
-        /// Custom voice ID to assign to the clone (8–256 characters,<br/>
-        /// alphanumeric, starts with a letter).
+        /// Target custom voice ID.
         /// </param>
+        /// <param name="clonePrompt"></param>
+        /// <param name="text">
+        /// Optional sample text for verification synthesis.
+        /// </param>
+        /// <param name="model">
+        /// Speech model for the optional verification sample.
+        /// </param>
+        /// <param name="languageBoost"></param>
         /// <param name="needNoiseReduction">
-        /// Whether to apply noise reduction to the reference audio.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="needVolumeNormalization">
-        /// Whether to normalize the volume of the reference audio.<br/>
         /// Default Value: false
         /// </param>
-        /// <param name="text">
-        /// Optional sample text to synthesize with the new voice to confirm cloning.
-        /// </param>
-        /// <param name="model">
-        /// TTS model to use for the sample synthesis (e.g., `speech-2.6-hd`).
-        /// </param>
-        /// <param name="accuracy">
-        /// Cloning accuracy threshold, 0.0–1.0.
-        /// </param>
-        /// <param name="clonePrompt">
-        /// Reference prompt-audio pair used to refine the cloned voice.
-        /// </param>
         /// <param name="aigcWatermark">
-        /// Whether to embed an AIGC watermark on the generated sample audio.
+        /// Default Value: false
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.VoiceCloneResponse> CreateVoiceCloneAsync(
-            string fileId,
+            long fileId,
             string voiceId,
-            bool? needNoiseReduction = default,
-            bool? needVolumeNormalization = default,
+            global::MiniMax.VoiceClonePrompt? clonePrompt = default,
             string? text = default,
             string? model = default,
-            float? accuracy = default,
-            global::MiniMax.VoiceClonePrompt? clonePrompt = default,
+            global::MiniMax.VoiceCloneRequestLanguageBoost? languageBoost = default,
+            bool? needNoiseReduction = default,
+            bool? needVolumeNormalization = default,
             bool? aigcWatermark = default,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
@@ -511,12 +477,12 @@ namespace MiniMax
             {
                 FileId = fileId,
                 VoiceId = voiceId,
-                NeedNoiseReduction = needNoiseReduction,
-                NeedVolumeNormalization = needVolumeNormalization,
+                ClonePrompt = clonePrompt,
                 Text = text,
                 Model = model,
-                Accuracy = accuracy,
-                ClonePrompt = clonePrompt,
+                LanguageBoost = languageBoost,
+                NeedNoiseReduction = needNoiseReduction,
+                NeedVolumeNormalization = needVolumeNormalization,
                 AigcWatermark = aigcWatermark,
             };
 

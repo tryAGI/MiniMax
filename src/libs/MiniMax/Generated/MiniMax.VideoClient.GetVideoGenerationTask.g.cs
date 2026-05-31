@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class VideoClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_GetVideoGenerationTaskServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_GetVideoGenerationTaskSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -55,11 +42,7 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Query a video generation task.<br/>
-        /// Polls a video generation task by `task_id`. The response `status`<br/>
-        /// progresses through `Preparing`, `Queueing`, `Processing`,<br/>
-        /// `Success`, `Fail`. When `Success`, `file_id` can be used with<br/>
-        /// `GET /v1/files/retrieve`.
+        /// Query a video generation task.
         /// </summary>
         /// <param name="taskId"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -79,11 +62,7 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Query a video generation task.<br/>
-        /// Polls a video generation task by `task_id`. The response `status`<br/>
-        /// progresses through `Preparing`, `Queueing`, `Processing`,<br/>
-        /// `Success`, `Fail`. When `Success`, `file_id` can be used with<br/>
-        /// `GET /v1/files/retrieve`.
+        /// Query a video generation task.
         /// </summary>
         /// <param name="taskId"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -125,9 +104,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/query/video_generation",
-                                baseUri: ResolveBaseUri(
-                                servers: s_GetVideoGenerationTaskServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             __pathBuilder
                                 .AddRequiredParameter("task_id", taskId)
                                 ;

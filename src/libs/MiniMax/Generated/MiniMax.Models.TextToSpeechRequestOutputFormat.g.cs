@@ -4,7 +4,6 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Output format (non-streaming only).<br/>
     /// Default Value: hex
     /// </summary>
     public enum TextToSpeechRequestOutputFormat

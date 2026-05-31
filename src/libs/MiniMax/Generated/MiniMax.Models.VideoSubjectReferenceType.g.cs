@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Reference type (e.g., `character`).
+    /// Reference subject type.
     /// </summary>
     public enum VideoSubjectReferenceType
     {

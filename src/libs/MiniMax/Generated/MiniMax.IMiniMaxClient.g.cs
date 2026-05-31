@@ -4,17 +4,15 @@
 namespace MiniMax
 {
     /// <summary>
-    /// MiniMax Platform API for AI-powered video generation (Hailuo),<br/>
-    /// music generation, text-to-speech (T2A v2), voice cloning, and file<br/>
-    /// management.<br/>
-    /// **Scope:** This SDK covers video, music, TTS, voice cloning, and file<br/>
-    /// upload/retrieval endpoints. LLM chat completions (OpenAI-compatible<br/>
-    /// `/v1/text/chatcompletion_v2`) are **excluded** — use<br/>
-    /// `tryAGI.OpenAI.CustomProviders.Minimax(...)` instead.<br/>
-    /// **Authentication:** `Authorization: Bearer &lt;API_KEY&gt;` with an API key from<br/>
-    /// the [MiniMax Platform](https://platform.minimax.io/user-center/basic-information/interface-key).<br/>
-    /// **Base URL:** `https://api.minimax.io` (global) or `https://api.minimaxi.chat`<br/>
-    /// for China mainland. Default in this SDK is the global endpoint.<br/>
+    /// MiniMax Platform API for image generation, Hailuo video generation, music generation,<br/>
+    /// text-to-speech, voice workflows, video templates, and file management.<br/>
+    /// **Scope:** This SDK covers the currently documented non-chat REST endpoints for<br/>
+    /// images, video, music, speech, voice management, and files. OpenAI-compatible<br/>
+    /// `/v1/text/chatcompletion_v2`, Anthropic-compatible chat, embeddings, and WebSocket<br/>
+    /// TTS are excluded from this SDK surface.<br/>
+    /// **Authentication:** `Authorization: Bearer &lt;API_KEY&gt;` from the<br/>
+    /// [MiniMax Platform](https://platform.minimaxi.com/user-center/basic-information/interface-key).<br/>
+    /// **Base URL:** `https://api.minimaxi.com`.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
@@ -29,27 +27,6 @@ namespace MiniMax
         /// The base URL for the API.
         /// </summary>
         public System.Uri? BaseUri { get; }
-
-
-        /// <summary>
-        /// The server options available for this client.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::MiniMax.AutoSDKServer> AvailableServers { get; }
-
-        /// <summary>
-        /// The currently selected server for this client, if any.
-        /// </summary>
-        public global::MiniMax.AutoSDKServer? SelectedServer { get; set; }
-
-        /// <summary>
-        /// Selects one of the generated server options by id.
-        /// </summary>
-        public bool TrySelectServer(string serverId);
-
-        /// <summary>
-        /// Clears the currently selected server.
-        /// </summary>
-        public void ClearSelectedServer();
 
         /// <summary>
         /// The authorizations to use for the requests.
@@ -77,22 +54,27 @@ namespace MiniMax
 
 
         /// <summary>
-        /// File upload/retrieval for assets used by video, music, and voice-clone endpoints.
+        /// Upload, retrieve, download, list, and delete files used by MiniMax workflows.
         /// </summary>
         public FilesClient Files { get; }
 
         /// <summary>
-        /// Music generation (text-to-music, music cover) — returns hex-encoded or URL audio.
+        /// Image generation from text prompts or reference images.
+        /// </summary>
+        public ImageClient Image { get; }
+
+        /// <summary>
+        /// Music generation, music-cover preprocessing, and lyrics generation.
         /// </summary>
         public MusicClient Music { get; }
 
         /// <summary>
-        /// Text-to-speech synthesis (T2A v2) and voice cloning.
+        /// Text-to-speech, async TTS, voice cloning, voice design, and voice management.
         /// </summary>
         public SpeechClient Speech { get; }
 
         /// <summary>
-        /// Video generation via Hailuo models (text-to-video, image-to-video, subject reference) with async task polling.
+        /// Hailuo video generation, task polling, and video template workflows.
         /// </summary>
         public VideoClient Video { get; }
 

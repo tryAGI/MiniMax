@@ -9,13 +9,13 @@ namespace MiniMax
     public sealed partial class VideoGenerationResponse
     {
         /// <summary>
-        /// Task ID to poll via `GET /v1/query/video_generation`.
+        /// Task ID to poll.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("task_id")]
         public string? TaskId { get; set; }
 
         /// <summary>
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("base_resp")]
         public global::MiniMax.BaseResponse? BaseResp { get; set; }
@@ -30,10 +30,10 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="VideoGenerationResponse" /> class.
         /// </summary>
         /// <param name="taskId">
-        /// Task ID to poll via `GET /v1/query/video_generation`.
+        /// Task ID to poll.
         /// </param>
         /// <param name="baseResp">
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

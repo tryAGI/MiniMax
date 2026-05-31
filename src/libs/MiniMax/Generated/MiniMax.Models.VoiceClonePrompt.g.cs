@@ -4,18 +4,18 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Reference prompt-audio pair used to refine the cloned voice.
+    /// 
     /// </summary>
     public sealed partial class VoiceClonePrompt
     {
         /// <summary>
-        /// File ID of a previously uploaded prompt-audio file.
+        /// Uploaded prompt-audio file ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_audio")]
-        public string? PromptAudio { get; set; }
+        public long? PromptAudio { get; set; }
 
         /// <summary>
-        /// Transcript of the prompt audio.
+        /// Transcript for the prompt audio.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt_text")]
         public string? PromptText { get; set; }
@@ -30,16 +30,16 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="VoiceClonePrompt" /> class.
         /// </summary>
         /// <param name="promptAudio">
-        /// File ID of a previously uploaded prompt-audio file.
+        /// Uploaded prompt-audio file ID.
         /// </param>
         /// <param name="promptText">
-        /// Transcript of the prompt audio.
+        /// Transcript for the prompt audio.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public VoiceClonePrompt(
-            string? promptAudio,
+            long? promptAudio,
             string? promptText)
         {
             this.PromptAudio = promptAudio;

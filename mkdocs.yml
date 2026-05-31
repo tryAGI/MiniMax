@@ -9,6 +9,13 @@ nav:
 - Guides:
   - Microsoft.Extensions.AI: guides/meai.md
 # EXAMPLES:START
+- Examples:
+  - Create a video generation task: examples/create-video-task.md
+  - Generate images from text: examples/generate-image.md
+  - Generate images from a reference image: examples/generate-image-reference.md
+  - Synthesize speech (T2A v2): examples/synthesize-speech.md
+  - Generate music: examples/generate-music.md
+  - MEAI AIFunction tools: examples/meai-tools.md
 # EXAMPLES:END
         
 theme:

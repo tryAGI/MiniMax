@@ -4,7 +4,6 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Output format — `hex` returns hex-encoded bytes inline, `url` returns a downloadable link.<br/>
     /// Default Value: hex
     /// </summary>
     public enum MusicGenerationRequestOutputFormat

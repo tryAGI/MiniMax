@@ -6,13 +6,14 @@ namespace MiniMax
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class VideoGenerationData
+    public sealed partial class VideoTemplateMediaInput
     {
         /// <summary>
-        /// Task ID to poll via `GET /v1/query/video_generation`.
+        /// Template media URL or data URL.
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("task_id")]
-        public string? TaskId { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("value")]
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string Value { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -21,24 +22,24 @@ namespace MiniMax
         public global::System.Collections.Generic.IDictionary<string, object> AdditionalProperties { get; set; } = new global::System.Collections.Generic.Dictionary<string, object>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoGenerationData" /> class.
+        /// Initializes a new instance of the <see cref="VideoTemplateMediaInput" /> class.
         /// </summary>
-        /// <param name="taskId">
-        /// Task ID to poll via `GET /v1/query/video_generation`.
+        /// <param name="value">
+        /// Template media URL or data URL.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
-        public VideoGenerationData(
-            string? taskId)
+        public VideoTemplateMediaInput(
+            string value)
         {
-            this.TaskId = taskId;
+            this.Value = value ?? throw new global::System.ArgumentNullException(nameof(value));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VideoGenerationData" /> class.
+        /// Initializes a new instance of the <see cref="VideoTemplateMediaInput" /> class.
         /// </summary>
-        public VideoGenerationData()
+        public VideoTemplateMediaInput()
         {
         }
 

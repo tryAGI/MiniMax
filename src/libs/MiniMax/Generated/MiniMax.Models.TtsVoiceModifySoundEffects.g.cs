@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Preset sound effect.
+    /// 
     /// </summary>
     public enum TtsVoiceModifySoundEffects
     {

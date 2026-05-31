@@ -9,13 +9,13 @@ namespace MiniMax
     public sealed partial class MusicGenerationData
     {
         /// <summary>
-        /// 1 when partial, 2 when complete.
+        /// 1 while generating, 2 when complete.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         public int? Status { get; set; }
 
         /// <summary>
-        /// Hex-encoded audio bytes (when `output_format=hex`) or URL (when `output_format=url`).
+        /// Hex audio payload or downloadable URL depending on `output_format`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio")]
         public string? Audio { get; set; }
@@ -30,10 +30,10 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="MusicGenerationData" /> class.
         /// </summary>
         /// <param name="status">
-        /// 1 when partial, 2 when complete.
+        /// 1 while generating, 2 when complete.
         /// </param>
         /// <param name="audio">
-        /// Hex-encoded audio bytes (when `output_format=hex`) or URL (when `output_format=url`).
+        /// Hex audio payload or downloadable URL depending on `output_format`.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

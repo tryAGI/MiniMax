@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Text-to-speech synthesis (T2A v2) and voice cloning.<br/>
+    /// Text-to-speech, async TTS, voice cloning, voice design, and voice management.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
@@ -19,27 +19,6 @@ namespace MiniMax
         /// The base URL for the API.
         /// </summary>
         public System.Uri? BaseUri { get; }
-
-
-        /// <summary>
-        /// The server options available for this client.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::MiniMax.AutoSDKServer> AvailableServers { get; }
-
-        /// <summary>
-        /// The currently selected server for this client, if any.
-        /// </summary>
-        public global::MiniMax.AutoSDKServer? SelectedServer { get; set; }
-
-        /// <summary>
-        /// Selects one of the generated server options by id.
-        /// </summary>
-        public bool TrySelectServer(string serverId);
-
-        /// <summary>
-        /// Clears the currently selected server.
-        /// </summary>
-        public void ClearSelectedServer();
 
         /// <summary>
         /// The authorizations to use for the requests.

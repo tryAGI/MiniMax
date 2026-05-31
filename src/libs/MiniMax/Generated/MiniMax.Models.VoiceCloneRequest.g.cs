@@ -9,60 +9,58 @@ namespace MiniMax
     public sealed partial class VoiceCloneRequest
     {
         /// <summary>
-        /// File ID returned from `POST /v1/files/upload` with `purpose=voice_clone`.
+        /// Reference audio file ID from file upload.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string FileId { get; set; }
+        public required long FileId { get; set; }
 
         /// <summary>
-        /// Custom voice ID to assign to the clone (8–256 characters,<br/>
-        /// alphanumeric, starts with a letter).
+        /// Target custom voice ID.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string VoiceId { get; set; }
 
         /// <summary>
-        /// Whether to apply noise reduction to the reference audio.<br/>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("clone_prompt")]
+        public global::MiniMax.VoiceClonePrompt? ClonePrompt { get; set; }
+
+        /// <summary>
+        /// Optional sample text for verification synthesis.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("text")]
+        public string? Text { get; set; }
+
+        /// <summary>
+        /// Speech model for the optional verification sample.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("model")]
+        public string? Model { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.VoiceCloneRequestLanguageBoostJsonConverter))]
+        public global::MiniMax.VoiceCloneRequestLanguageBoost? LanguageBoost { get; set; }
+
+        /// <summary>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("need_noise_reduction")]
         public bool? NeedNoiseReduction { get; set; }
 
         /// <summary>
-        /// Whether to normalize the volume of the reference audio.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("need_volume_normalization")]
         public bool? NeedVolumeNormalization { get; set; }
 
         /// <summary>
-        /// Optional sample text to synthesize with the new voice to confirm cloning.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("text")]
-        public string? Text { get; set; }
-
-        /// <summary>
-        /// TTS model to use for the sample synthesis (e.g., `speech-2.6-hd`).
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("model")]
-        public string? Model { get; set; }
-
-        /// <summary>
-        /// Cloning accuracy threshold, 0.0–1.0.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("accuracy")]
-        public float? Accuracy { get; set; }
-
-        /// <summary>
-        /// Reference prompt-audio pair used to refine the cloned voice.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("clone_prompt")]
-        public global::MiniMax.VoiceClonePrompt? ClonePrompt { get; set; }
-
-        /// <summary>
-        /// Whether to embed an AIGC watermark on the generated sample audio.
+        /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
         public bool? AigcWatermark { get; set; }
@@ -77,57 +75,50 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="VoiceCloneRequest" /> class.
         /// </summary>
         /// <param name="fileId">
-        /// File ID returned from `POST /v1/files/upload` with `purpose=voice_clone`.
+        /// Reference audio file ID from file upload.
         /// </param>
         /// <param name="voiceId">
-        /// Custom voice ID to assign to the clone (8–256 characters,<br/>
-        /// alphanumeric, starts with a letter).
+        /// Target custom voice ID.
         /// </param>
+        /// <param name="clonePrompt"></param>
+        /// <param name="text">
+        /// Optional sample text for verification synthesis.
+        /// </param>
+        /// <param name="model">
+        /// Speech model for the optional verification sample.
+        /// </param>
+        /// <param name="languageBoost"></param>
         /// <param name="needNoiseReduction">
-        /// Whether to apply noise reduction to the reference audio.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="needVolumeNormalization">
-        /// Whether to normalize the volume of the reference audio.<br/>
         /// Default Value: false
         /// </param>
-        /// <param name="text">
-        /// Optional sample text to synthesize with the new voice to confirm cloning.
-        /// </param>
-        /// <param name="model">
-        /// TTS model to use for the sample synthesis (e.g., `speech-2.6-hd`).
-        /// </param>
-        /// <param name="accuracy">
-        /// Cloning accuracy threshold, 0.0–1.0.
-        /// </param>
-        /// <param name="clonePrompt">
-        /// Reference prompt-audio pair used to refine the cloned voice.
-        /// </param>
         /// <param name="aigcWatermark">
-        /// Whether to embed an AIGC watermark on the generated sample audio.
+        /// Default Value: false
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public VoiceCloneRequest(
-            string fileId,
+            long fileId,
             string voiceId,
-            bool? needNoiseReduction,
-            bool? needVolumeNormalization,
+            global::MiniMax.VoiceClonePrompt? clonePrompt,
             string? text,
             string? model,
-            float? accuracy,
-            global::MiniMax.VoiceClonePrompt? clonePrompt,
+            global::MiniMax.VoiceCloneRequestLanguageBoost? languageBoost,
+            bool? needNoiseReduction,
+            bool? needVolumeNormalization,
             bool? aigcWatermark)
         {
-            this.FileId = fileId ?? throw new global::System.ArgumentNullException(nameof(fileId));
+            this.FileId = fileId;
             this.VoiceId = voiceId ?? throw new global::System.ArgumentNullException(nameof(voiceId));
-            this.NeedNoiseReduction = needNoiseReduction;
-            this.NeedVolumeNormalization = needVolumeNormalization;
+            this.ClonePrompt = clonePrompt;
             this.Text = text;
             this.Model = model;
-            this.Accuracy = accuracy;
-            this.ClonePrompt = clonePrompt;
+            this.LanguageBoost = languageBoost;
+            this.NeedNoiseReduction = needNoiseReduction;
+            this.NeedVolumeNormalization = needVolumeNormalization;
             this.AigcWatermark = aigcWatermark;
         }
 

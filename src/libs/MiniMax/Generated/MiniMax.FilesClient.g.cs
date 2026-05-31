@@ -4,16 +4,16 @@
 namespace MiniMax
 {
     /// <summary>
-    /// File upload/retrieval for assets used by video, music, and voice-clone endpoints.<br/>
+    /// Upload, retrieve, download, list, and delete files used by MiniMax workflows.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
     public sealed partial class FilesClient : global::MiniMax.IFilesClient, global::System.IDisposable
     {
         /// <summary>
-        /// MiniMax Global Production API
+        /// MiniMax Production API
         /// </summary>
-        public const string DefaultBaseUrl = "https://api.minimax.io/";
+        public const string DefaultBaseUrl = "https://api.minimaxi.com/";
 
         private bool _disposeHttpClient = true;
 
@@ -21,7 +21,7 @@ namespace MiniMax
         public global::System.Net.Http.HttpClient HttpClient { get; }
 
         /// <inheritdoc/>
-        public System.Uri? BaseUri => ResolveDisplayedBaseUri();
+        public System.Uri? BaseUri => HttpClient.BaseAddress;
 
         /// <inheritdoc/>
         public global::System.Collections.Generic.List<global::MiniMax.EndPointAuthorization> Authorizations { get; }
@@ -34,42 +34,11 @@ namespace MiniMax
 
         /// <inheritdoc/>
         public global::MiniMax.AutoSDKClientOptions Options { get; }
-
-
-        internal global::MiniMax.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::MiniMax.AutoSDKServerConfiguration();
         /// <summary>
         /// 
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; } = global::MiniMax.SourceGenerationContext.Default;
 
-
-
-        private static readonly global::MiniMax.AutoSDKServer[] s_availableServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
-        /// <summary>
-        /// The server options available for this client.
-        /// </summary>
-        public global::System.Collections.Generic.IReadOnlyList<global::MiniMax.AutoSDKServer> AvailableServers => s_availableServers;
-
-        /// <summary>
-        /// The currently selected server for this client, if any.
-        /// </summary>
-        public global::MiniMax.AutoSDKServer? SelectedServer
-        {
-            get => ResolveSelectedServer();
-            set => SelectServer(value);
-        }
 
         /// <summary>
         /// Creates a new instance of the FilesClient.
@@ -133,15 +102,10 @@ namespace MiniMax
         {
 
             HttpClient = httpClient ?? new global::System.Net.Http.HttpClient();
-            if (baseUri is not null)
-            {
-                HttpClient.BaseAddress ??= baseUri;
-            }
+            HttpClient.BaseAddress ??= baseUri ?? new global::System.Uri(DefaultBaseUrl);
             Authorizations = authorizations ?? new global::System.Collections.Generic.List<global::MiniMax.EndPointAuthorization>();
             Options = options ?? new global::MiniMax.AutoSDKClientOptions();
             _disposeHttpClient = disposeHttpClient;
-
-            AutoSDKServerConfiguration.ExplicitBaseUri = baseUri ?? httpClient?.BaseAddress;
 
             Initialized(HttpClient);
         }
@@ -169,117 +133,5 @@ namespace MiniMax
             global::System.Net.Http.HttpClient client,
             global::System.Net.Http.HttpResponseMessage response,
             ref string content);
-
-
-        /// <summary>
-        /// Selects one of the generated server options by id.
-        /// </summary>
-        public bool TrySelectServer(string serverId)
-        {
-            if (string.IsNullOrWhiteSpace(serverId))
-            {
-                return false;
-            }
-
-            foreach (var server in s_availableServers)
-            {
-                if (string.Equals(server.Id, serverId, global::System.StringComparison.OrdinalIgnoreCase))
-                {
-                    AutoSDKServerConfiguration.SelectedServer = server;
-                    AutoSDKServerConfiguration.ExplicitBaseUri = null;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Clears the currently selected server.
-        /// </summary>
-        public void ClearSelectedServer()
-        {
-            AutoSDKServerConfiguration.SelectedServer = null;
-        }
-
-        private global::MiniMax.AutoSDKServer? ResolveSelectedServer()
-        {
-            var selectedServer = AutoSDKServerConfiguration.SelectedServer;
-            if (selectedServer is null)
-            {
-                return null;
-            }
-
-            foreach (var server in s_availableServers)
-            {
-                if (string.Equals(server.Id, selectedServer.Id, global::System.StringComparison.Ordinal))
-                {
-                    return server;
-                }
-            }
-
-            return null;
-        }
-
-        private void SelectServer(global::MiniMax.AutoSDKServer? server)
-        {
-            if (server is null)
-            {
-                AutoSDKServerConfiguration.SelectedServer = null;
-                return;
-            }
-
-            foreach (var candidate in s_availableServers)
-            {
-                if (string.Equals(candidate.Id, server.Id, global::System.StringComparison.Ordinal))
-                {
-                    AutoSDKServerConfiguration.SelectedServer = candidate;
-                    AutoSDKServerConfiguration.ExplicitBaseUri = null;
-                    return;
-                }
-            }
-
-            throw new global::System.ArgumentException("The provided server is not available for this client.", nameof(server));
-        }
-
-        private global::System.Uri? ResolveDisplayedBaseUri()
-        {
-            if (AutoSDKServerConfiguration.ExplicitBaseUri is global::System.Uri explicitBaseUri)
-            {
-                return explicitBaseUri;
-            }
-
-            return ResolveSelectedServer()?.Uri ?? (s_availableServers.Length > 0 ? s_availableServers[0].Uri : HttpClient.BaseAddress);
-        }
-
-        private global::System.Uri? ResolveBaseUri(
-            global::MiniMax.AutoSDKServer[] servers,
-            string defaultBaseUrl)
-        {
-            if (AutoSDKServerConfiguration.ExplicitBaseUri is global::System.Uri explicitBaseUri)
-            {
-                return explicitBaseUri;
-            }
-
-            if (AutoSDKServerConfiguration.SelectedServer is global::MiniMax.AutoSDKServer selectedServer)
-            {
-                foreach (var server in servers)
-                {
-                    if (string.Equals(server.Id, selectedServer.Id, global::System.StringComparison.Ordinal))
-                    {
-                        return server.Uri;
-                    }
-                }
-            }
-
-            if (servers.Length > 0)
-            {
-                return servers[0].Uri;
-            }
-
-            return string.IsNullOrWhiteSpace(defaultBaseUrl)
-                ? HttpClient.BaseAddress
-                : new global::System.Uri(defaultBaseUrl, global::System.UriKind.RelativeOrAbsolute);
-        }
     }
 }

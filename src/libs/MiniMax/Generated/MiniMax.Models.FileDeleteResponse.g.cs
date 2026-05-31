@@ -15,7 +15,7 @@ namespace MiniMax
         public long? FileId { get; set; }
 
         /// <summary>
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("base_resp")]
         public global::MiniMax.BaseResponse? BaseResp { get; set; }
@@ -31,7 +31,7 @@ namespace MiniMax
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="baseResp">
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

@@ -2,16 +2,17 @@
 
 ## Overview
 
-Auto-generated C# SDK for the [MiniMax Platform](https://platform.minimax.io/) --
-covers Hailuo video generation, music generation, text-to-speech (T2A v2),
-voice cloning, and file management.
+Auto-generated C# SDK for the [MiniMax Platform](https://platform.minimaxi.com/) --
+covers image generation, Hailuo video generation, music and lyrics generation,
+text-to-speech, voice workflows, and file management.
 
 **Scope:**
 
+- **Image** -- shared `/v1/image_generation` endpoint for text-to-image and image-to-image generation.
 - **Video** -- Hailuo 2.3 / 2.3-Fast / 02 text-to-video, image-to-video, start-end, subject reference (async task pattern: POST + poll).
-- **Music** -- `music-2.6` / `music-cover` / `music-2.0` generation.
-- **Speech** -- T2A v2 text-to-speech (`speech-2.8-hd`, `speech-2.8-turbo`, `speech-2.6-*`, `speech-02-*`, `speech-01-*`) + voice clone.
-- **Files** -- upload/retrieve/list/delete (used as inputs for voice clone, music cover, video start frames).
+- **Music** -- `music-2.6` / `music-cover` generation, music-cover preprocess, and lyrics generation.
+- **Speech** -- T2A v2 text-to-speech, async TTS, voice clone, voice design, and voice management.
+- **Files** -- upload/retrieve/download/list/delete (used as inputs for voice clone, async TTS, and generated assets).
 
 **Excluded** (use another SDK):
 
@@ -19,7 +20,7 @@ voice cloning, and file management.
 - Embeddings -- MiniMax embeddings are chat-adjacent; use an LLM-focused SDK if needed.
 - WebSocket TTS streaming -- not yet modelled; REST T2A v2 `stream=true` still works.
 
-**No public OpenAPI spec exists** -- `openapi.yaml` is handcrafted from [platform.minimax.io/docs](https://platform.minimax.io/docs).
+**No public bundled OpenAPI spec exists** -- `openapi.yaml` is handcrafted from [platform.minimaxi.com/docs](https://platform.minimaxi.com/docs).
 
 ## Build & Test
 
@@ -33,7 +34,7 @@ Tests skip (`AssertInconclusiveException`) when `MINIMAX_API_KEY` is missing.
 ## Auth
 
 Standard Bearer token. Get an API key from
-<https://platform.minimax.io/user-center/basic-information/interface-key>.
+<https://platform.minimaxi.com/user-center/basic-information/interface-key>.
 
 ```csharp
 using var client = new MiniMaxClient(apiKey); // MINIMAX_API_KEY env var
@@ -41,20 +42,19 @@ using var client = new MiniMaxClient(apiKey); // MINIMAX_API_KEY env var
 
 ## Base URL
 
-- Default: `https://api.minimax.io` (global)
-- China mainland: `https://api.minimaxi.chat`
+- Default: `https://api.minimaxi.com`
 
-Switch via `client.TrySelectServer("https-api-minimaxi-chat")` or pass
-`baseUri` to the constructor.
+Pass `baseUri` to the constructor to override it.
 
 ## Sub-Client Layout
 
 | Sub-client | Endpoints | Purpose |
 |---|---|---|
+| `client.Image` | `POST /v1/image_generation` | Text-to-image and image-to-image generation |
 | `client.Video` | `POST /v1/video_generation`, `GET /v1/query/video_generation` | Hailuo video tasks |
-| `client.Music` | `POST /v1/music_generation` | Music generation |
-| `client.Speech` | `POST /v1/t2a_v2`, `POST /v1/voice_clone` | TTS + voice cloning |
-| `client.Files` | `POST/GET /v1/files/{upload,retrieve,list,delete}` | File management |
+| `client.Music` | `POST /v1/music_generation`, `POST /v1/music_cover_preprocess`, `POST /v1/lyrics_generation` | Music and lyrics workflows |
+| `client.Speech` | `POST /v1/t2a_v2`, `POST /v1/t2a_async_v2`, `POST /v1/voice_clone`, `POST /v1/voice_design`, `POST /v1/get_voice`, `POST /v1/delete_voice` | Speech and voice workflows |
+| `client.Files` | `POST/GET /v1/files/{upload,retrieve,list,retrieve_content,delete}` | File management |
 
 ## Async Video Task Pattern
 
@@ -104,8 +104,8 @@ through `tryAGI.OpenAI.CustomProviders.Minimax(...)`.
 
 ## Notes & Gotchas
 
-- **Enum naming:** `VideoGenerationRequestResolution.x1080p` / `x768p` / `x512p` (AutoSDK prepends `x` when enum values start with digits).
-- **Resolution per model:** Hailuo-2.3 supports 512P/768P/1080P, Hailuo-2.3-Fast is 768P only, Hailuo-02 supports 768P/1080P -- check the platform docs for the exact matrix before each release.
+- **Enum naming:** `VideoGenerationRequestResolution.x1080p`, `ImageGenerationRequestAspectRatio.x16_9`, and similar enums are prefixed when values start with digits.
+- **Resolution per model:** the documented matrix now centers on `720P`, `768P`, and `1080P`. Check the platform docs before relying on a specific model/resolution pairing.
 - **Audio output:** default is `hex` (inline hex-encoded bytes). Pass `outputFormat: *OutputFormat.Url` for a downloadable link.
-- **Voice clone prerequisite:** upload the reference audio (MP3/M4A/WAV, 10s-5min) via `client.Files.UploadFileAsync(purpose: "voice_clone", ...)` first, then pass the returned `file_id` to `CreateVoiceCloneAsync`.
+- **Voice clone prerequisite:** upload the reference audio (MP3/M4A/WAV, 10s-5min) via `client.Files.UploadFileAsync(purpose: "voice_clone", ...)` first, then pass the numeric `file_id` to `CreateVoiceCloneAsync`.
 - **CLS compliance:** extension methods returning `AIFunction` are marked `[CLSCompliant(false)]` because `Microsoft.Extensions.AI.AIFunction` is not CLS-compliant.

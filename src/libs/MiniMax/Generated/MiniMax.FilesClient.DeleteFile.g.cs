@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class FilesClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_DeleteFileServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_DeleteFileSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -55,8 +42,7 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Delete a file.<br/>
-        /// Deletes a previously uploaded file.
+        /// Delete a file.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -78,8 +64,7 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Delete a file.<br/>
-        /// Deletes a previously uploaded file.
+        /// Delete a file.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -124,9 +109,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/files/delete",
-                                baseUri: ResolveBaseUri(
-                                servers: s_DeleteFileServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -449,23 +432,23 @@ namespace MiniMax
             }
         }
         /// <summary>
-        /// Delete a file.<br/>
-        /// Deletes a previously uploaded file.
+        /// Delete a file.
         /// </summary>
-        /// <param name="fileId">
-        /// File ID to delete.
-        /// </param>
+        /// <param name="fileId"></param>
+        /// <param name="purpose"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.FileDeleteResponse> DeleteFileAsync(
             long fileId,
+            global::MiniMax.FileDeleteRequestPurpose purpose,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::MiniMax.FileDeleteRequest
             {
                 FileId = fileId,
+                Purpose = purpose,
             };
 
             return await DeleteFileAsync(

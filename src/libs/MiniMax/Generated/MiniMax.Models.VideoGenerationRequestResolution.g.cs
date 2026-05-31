@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Output resolution.
+    /// Requested output resolution.
     /// </summary>
     public enum VideoGenerationRequestResolution
     {
@@ -15,7 +15,7 @@ namespace MiniMax
         /// <summary>
         /// 
         /// </summary>
-        x512p,
+        x720p,
         /// <summary>
         /// 
         /// </summary>
@@ -35,7 +35,7 @@ namespace MiniMax
             return value switch
             {
                 VideoGenerationRequestResolution.x1080p => "1080P",
-                VideoGenerationRequestResolution.x512p => "512P",
+                VideoGenerationRequestResolution.x720p => "720P",
                 VideoGenerationRequestResolution.x768p => "768P",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -48,7 +48,7 @@ namespace MiniMax
             return value switch
             {
                 "1080P" => VideoGenerationRequestResolution.x1080p,
-                "512P" => VideoGenerationRequestResolution.x512p,
+                "720P" => VideoGenerationRequestResolution.x720p,
                 "768P" => VideoGenerationRequestResolution.x768p,
                 _ => null,
             };

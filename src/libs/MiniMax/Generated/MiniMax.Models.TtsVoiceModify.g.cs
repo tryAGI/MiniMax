@@ -4,30 +4,30 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Voice effect/modulation settings.
+    /// 
     /// </summary>
     public sealed partial class TtsVoiceModify
     {
         /// <summary>
-        /// Pitch adjustment, -100 to 100.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pitch")]
         public int? Pitch { get; set; }
 
         /// <summary>
-        /// Intensity adjustment, -100 to 100.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("intensity")]
         public int? Intensity { get; set; }
 
         /// <summary>
-        /// Timbre adjustment, -100 to 100.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("timbre")]
         public int? Timbre { get; set; }
 
         /// <summary>
-        /// Preset sound effect.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sound_effects")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.TtsVoiceModifySoundEffectsJsonConverter))]
@@ -42,18 +42,10 @@ namespace MiniMax
         /// <summary>
         /// Initializes a new instance of the <see cref="TtsVoiceModify" /> class.
         /// </summary>
-        /// <param name="pitch">
-        /// Pitch adjustment, -100 to 100.
-        /// </param>
-        /// <param name="intensity">
-        /// Intensity adjustment, -100 to 100.
-        /// </param>
-        /// <param name="timbre">
-        /// Timbre adjustment, -100 to 100.
-        /// </param>
-        /// <param name="soundEffects">
-        /// Preset sound effect.
-        /// </param>
+        /// <param name="pitch"></param>
+        /// <param name="intensity"></param>
+        /// <param name="timbre"></param>
+        /// <param name="soundEffects"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif

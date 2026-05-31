@@ -9,26 +9,38 @@ namespace MiniMax
     public sealed partial class VideoTaskStatusResponse
     {
         /// <summary>
-        /// Task ID passed in.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("task_id")]
         public string? TaskId { get; set; }
 
         /// <summary>
-        /// Task lifecycle status.
+        /// Video generation task state.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.VideoTaskStatusJsonConverter))]
         public global::MiniMax.VideoTaskStatus? Status { get; set; }
 
         /// <summary>
-        /// File ID of the generated video (only set when `status=Success`).
+        /// Generated file ID when successful.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file_id")]
         public string? FileId { get; set; }
 
         /// <summary>
-        /// Common status envelope returned by every MiniMax API call.
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("video_width")]
+        public int? VideoWidth { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("video_height")]
+        public int? VideoHeight { get; set; }
+
+        /// <summary>
+        /// Common status envelope returned by MiniMax API calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("base_resp")]
         public global::MiniMax.BaseResponse? BaseResp { get; set; }
@@ -42,17 +54,17 @@ namespace MiniMax
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoTaskStatusResponse" /> class.
         /// </summary>
-        /// <param name="taskId">
-        /// Task ID passed in.
-        /// </param>
+        /// <param name="taskId"></param>
         /// <param name="status">
-        /// Task lifecycle status.
+        /// Video generation task state.
         /// </param>
         /// <param name="fileId">
-        /// File ID of the generated video (only set when `status=Success`).
+        /// Generated file ID when successful.
         /// </param>
+        /// <param name="videoWidth"></param>
+        /// <param name="videoHeight"></param>
         /// <param name="baseResp">
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -61,11 +73,15 @@ namespace MiniMax
             string? taskId,
             global::MiniMax.VideoTaskStatus? status,
             string? fileId,
+            int? videoWidth,
+            int? videoHeight,
             global::MiniMax.BaseResponse? baseResp)
         {
             this.TaskId = taskId;
             this.Status = status;
             this.FileId = fileId;
+            this.VideoWidth = videoWidth;
+            this.VideoHeight = videoHeight;
             this.BaseResp = baseResp;
         }
 

@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class MusicClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_CreateMusicGenerationServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateMusicGenerationSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -55,11 +42,7 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Generate music.<br/>
-        /// Generates music using MiniMax music models (`music-2.6`, `music-cover`,<br/>
-        /// `music-2.6-free`, `music-cover-free`). The response contains either<br/>
-        /// hex-encoded audio (`output_format=hex`, default) or a downloadable URL<br/>
-        /// (`output_format=url`).
+        /// Generate music.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -81,11 +64,7 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Generate music.<br/>
-        /// Generates music using MiniMax music models (`music-2.6`, `music-cover`,<br/>
-        /// `music-2.6-free`, `music-cover-free`). The response contains either<br/>
-        /// hex-encoded audio (`output_format=hex`, default) or a downloadable URL<br/>
-        /// (`output_format=url`).
+        /// Generate music.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -130,9 +109,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/music_generation",
-                                baseUri: ResolveBaseUri(
-                                servers: s_CreateMusicGenerationServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -455,48 +432,39 @@ namespace MiniMax
             }
         }
         /// <summary>
-        /// Generate music.<br/>
-        /// Generates music using MiniMax music models (`music-2.6`, `music-cover`,<br/>
-        /// `music-2.6-free`, `music-cover-free`). The response contains either<br/>
-        /// hex-encoded audio (`output_format=hex`, default) or a downloadable URL<br/>
-        /// (`output_format=url`).
+        /// Generate music.
         /// </summary>
         /// <param name="model">
-        /// Music model. Supported values:<br/>
-        /// `music-2.6`, `music-cover`, `music-2.6-free`, `music-cover-free`,<br/>
-        /// `music-2.0`.
+        /// Music generation model.
         /// </param>
         /// <param name="prompt">
-        /// Music description (style, mood, scenario) — 1 to 2000 characters.
+        /// Music prompt.
         /// </param>
         /// <param name="lyrics">
-        /// Song lyrics with `\n` line breaks. Supports structure tags such as<br/>
-        /// `[Verse]`, `[Chorus]`, `[Bridge]`. 1 to 3500 characters.
+        /// Lyrics with optional section markers.
         /// </param>
         /// <param name="stream">
-        /// Whether to stream the output (server-sent events).<br/>
         /// Default Value: false
         /// </param>
         /// <param name="outputFormat">
-        /// Output format — `hex` returns hex-encoded bytes inline, `url` returns a downloadable link.<br/>
         /// Default Value: hex
         /// </param>
-        /// <param name="audioSetting">
-        /// Audio output configuration for music generation.
-        /// </param>
+        /// <param name="audioSetting"></param>
+        /// <param name="aigcWatermark"></param>
         /// <param name="lyricsOptimizer">
-        /// Whether to auto-generate lyrics from the prompt.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="isInstrumental">
-        /// Whether to generate instrumental music (no vocals).<br/>
         /// Default Value: false
         /// </param>
         /// <param name="audioUrl">
-        /// Reference audio URL for `music-cover` models.
+        /// Reference audio URL for cover generation.
         /// </param>
         /// <param name="audioBase64">
-        /// Base64-encoded reference audio for `music-cover` models.
+        /// Reference audio as base64 for cover generation.
+        /// </param>
+        /// <param name="coverFeatureId">
+        /// Preprocessed cover feature ID for two-step cover generation.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
@@ -508,10 +476,12 @@ namespace MiniMax
             bool? stream = default,
             global::MiniMax.MusicGenerationRequestOutputFormat? outputFormat = default,
             global::MiniMax.MusicAudioSetting? audioSetting = default,
+            bool? aigcWatermark = default,
             bool? lyricsOptimizer = default,
             bool? isInstrumental = default,
             string? audioUrl = default,
             string? audioBase64 = default,
+            string? coverFeatureId = default,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -523,10 +493,12 @@ namespace MiniMax
                 Stream = stream,
                 OutputFormat = outputFormat,
                 AudioSetting = audioSetting,
+                AigcWatermark = aigcWatermark,
                 LyricsOptimizer = lyricsOptimizer,
                 IsInstrumental = isInstrumental,
                 AudioUrl = audioUrl,
                 AudioBase64 = audioBase64,
+                CoverFeatureId = coverFeatureId,
             };
 
             return await CreateMusicGenerationAsync(

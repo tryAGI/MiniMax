@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# MiniMax Platform has no public OpenAPI spec — `openapi.yaml` is handcrafted
-# from the published docs at https://platform.minimax.io/docs.
+# MiniMax Platform has no public bundled OpenAPI spec — `openapi.yaml` is
+# handcrafted from the published docs at https://platform.minimaxi.com/docs.
 #
-# Scope: Video (Hailuo), Music, TTS (T2A v2), Voice Clone, Files.
+# Scope: Image, Video (Hailuo + templates), Music, Lyrics, TTS, Async TTS,
+# Voice Clone, Voice Design/Management, and Files.
 # LLM chat completions are excluded — use `tryAGI.OpenAI.CustomProviders.Minimax`.
 #
-# Auth: standard Bearer token from platform.minimax.io/user-center/basic-information/interface-key.
+# Auth: standard Bearer token from
+# platform.minimaxi.com/user-center/basic-information/interface-key.
 
 dotnet tool install --global autosdk.cli --prerelease
 rm -rf Generated

@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class FilesClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_UploadFileServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_UploadFileSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -55,10 +42,7 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Upload a file.<br/>
-        /// Uploads a file (audio, image, or video) for subsequent use in<br/>
-        /// voice-clone, music-cover, or video-generation workflows. Returns a<br/>
-        /// `file_id` that can be referenced in other endpoints.
+        /// Upload a file.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -80,10 +64,7 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Upload a file.<br/>
-        /// Uploads a file (audio, image, or video) for subsequent use in<br/>
-        /// voice-clone, music-cover, or video-generation workflows. Returns a<br/>
-        /// `file_id` that can be referenced in other endpoints.
+        /// Upload a file.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -128,9 +109,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/files/upload",
-                                baseUri: ResolveBaseUri(
-                                servers: s_UploadFileServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -163,7 +142,7 @@ namespace MiniMax
 
                             var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent(request.Purpose ?? string.Empty),
+                                content: new global::System.Net.Http.StringContent(request.Purpose.ToValueString()),
                                 name: "\"purpose\"");
 
                             var __contentFile = new global::System.Net.Http.ByteArrayContent(request.File ?? global::System.Array.Empty<byte>());
@@ -493,26 +472,22 @@ namespace MiniMax
             }
         }
         /// <summary>
-        /// Upload a file.<br/>
-        /// Uploads a file (audio, image, or video) for subsequent use in<br/>
-        /// voice-clone, music-cover, or video-generation workflows. Returns a<br/>
-        /// `file_id` that can be referenced in other endpoints.
+        /// Upload a file.
         /// </summary>
         /// <param name="purpose">
-        /// File purpose — `voice_clone`, `prompt_audio`, `retrieval`,<br/>
-        /// `fine-tune`, `fine-tune-results`.
+        /// Upload purpose.
         /// </param>
         /// <param name="file">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="filename">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.FileUploadResponse> UploadFileAsync(
-            string purpose,
+            global::MiniMax.FileUploadRequestPurpose purpose,
             byte[] file,
             string filename,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
@@ -532,26 +507,22 @@ namespace MiniMax
         }
 
         /// <summary>
-        /// Upload a file.<br/>
-        /// Uploads a file (audio, image, or video) for subsequent use in<br/>
-        /// voice-clone, music-cover, or video-generation workflows. Returns a<br/>
-        /// `file_id` that can be referenced in other endpoints.
+        /// Upload a file.
         /// </summary>
         /// <param name="purpose">
-        /// File purpose — `voice_clone`, `prompt_audio`, `retrieval`,<br/>
-        /// `fine-tune`, `fine-tune-results`.
+        /// Upload purpose.
         /// </param>
         /// <param name="file">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="filename">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::MiniMax.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.FileUploadResponse> UploadFileAsync(
-            string purpose,
+            global::MiniMax.FileUploadRequestPurpose purpose,
             global::System.IO.Stream file,
             string filename,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
@@ -596,9 +567,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/files/upload",
-                                baseUri: ResolveBaseUri(
-                                servers: s_UploadFileServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -631,7 +600,7 @@ namespace MiniMax
 
                             var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent(request.Purpose ?? string.Empty),
+                                content: new global::System.Net.Http.StringContent(request.Purpose.ToValueString()),
                                 name: "\"purpose\"");
 
                             var __contentFile = new global::System.Net.Http.StreamContent(file);
@@ -953,26 +922,22 @@ namespace MiniMax
             }
         }
         /// <summary>
-        /// Upload a file.<br/>
-        /// Uploads a file (audio, image, or video) for subsequent use in<br/>
-        /// voice-clone, music-cover, or video-generation workflows. Returns a<br/>
-        /// `file_id` that can be referenced in other endpoints.
+        /// Upload a file.
         /// </summary>
         /// <param name="purpose">
-        /// File purpose — `voice_clone`, `prompt_audio`, `retrieval`,<br/>
-        /// `fine-tune`, `fine-tune-results`.
+        /// Upload purpose.
         /// </param>
         /// <param name="file">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="filename">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::MiniMax.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.FileUploadResponse>> UploadFileAsResponseAsync(
-            string purpose,
+            global::MiniMax.FileUploadRequestPurpose purpose,
             global::System.IO.Stream file,
             string filename,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
@@ -1017,9 +982,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/files/upload",
-                                baseUri: ResolveBaseUri(
-                                servers: s_UploadFileServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -1052,7 +1015,7 @@ namespace MiniMax
 
                             var __httpRequestContent = new global::System.Net.Http.MultipartFormDataContent();
                             __httpRequestContent.Add(
-                                content: new global::System.Net.Http.StringContent(request.Purpose ?? string.Empty),
+                                content: new global::System.Net.Http.StringContent(request.Purpose.ToValueString()),
                                 name: "\"purpose\"");
 
                             var __contentFile = new global::System.Net.Http.StreamContent(file);

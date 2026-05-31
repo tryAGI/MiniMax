@@ -9,7 +9,7 @@ namespace MiniMax
     public sealed partial class TtsStreamOptions
     {
         /// <summary>
-        /// Omit the aggregated-audio chunk at the end of the stream.
+        /// Whether the last stream chunk omits the aggregated audio payload.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("exclude_aggregated_audio")]
         public bool? ExcludeAggregatedAudio { get; set; }
@@ -24,7 +24,7 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="TtsStreamOptions" /> class.
         /// </summary>
         /// <param name="excludeAggregatedAudio">
-        /// Omit the aggregated-audio chunk at the end of the stream.
+        /// Whether the last stream chunk omits the aggregated audio payload.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

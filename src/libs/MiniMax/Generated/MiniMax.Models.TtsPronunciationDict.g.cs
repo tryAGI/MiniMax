@@ -4,13 +4,12 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Custom pronunciation rules.
+    /// 
     /// </summary>
     public sealed partial class TtsPronunciationDict
     {
         /// <summary>
-        /// Pronunciation rewrites in the form `"source/target"` — e.g.,<br/>
-        /// `"omg/oh my god"`.
+        /// Pronunciation replacement rules.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("tone")]
         public global::System.Collections.Generic.IList<string>? Tone { get; set; }
@@ -25,8 +24,7 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="TtsPronunciationDict" /> class.
         /// </summary>
         /// <param name="tone">
-        /// Pronunciation rewrites in the form `"source/target"` — e.g.,<br/>
-        /// `"omg/oh my god"`.
+        /// Pronunciation replacement rules.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]

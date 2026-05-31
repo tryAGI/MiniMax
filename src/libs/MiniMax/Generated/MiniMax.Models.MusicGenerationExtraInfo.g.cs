@@ -9,34 +9,34 @@ namespace MiniMax
     public sealed partial class MusicGenerationExtraInfo
     {
         /// <summary>
-        /// Duration of the generated music in milliseconds.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("music_duration")]
         public int? MusicDuration { get; set; }
 
         /// <summary>
-        /// Sample rate in Hz.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("music_sample_rate")]
         public int? MusicSampleRate { get; set; }
 
         /// <summary>
-        /// Number of audio channels (1=mono, 2=stereo).
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("music_channel")]
         public int? MusicChannel { get; set; }
 
         /// <summary>
-        /// Bitrate in bits/sec.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bitrate")]
         public int? Bitrate { get; set; }
 
         /// <summary>
-        /// Size of the output audio in bytes.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("music_size")]
-        public long? MusicSize { get; set; }
+        public int? MusicSize { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -47,21 +47,11 @@ namespace MiniMax
         /// <summary>
         /// Initializes a new instance of the <see cref="MusicGenerationExtraInfo" /> class.
         /// </summary>
-        /// <param name="musicDuration">
-        /// Duration of the generated music in milliseconds.
-        /// </param>
-        /// <param name="musicSampleRate">
-        /// Sample rate in Hz.
-        /// </param>
-        /// <param name="musicChannel">
-        /// Number of audio channels (1=mono, 2=stereo).
-        /// </param>
-        /// <param name="bitrate">
-        /// Bitrate in bits/sec.
-        /// </param>
-        /// <param name="musicSize">
-        /// Size of the output audio in bytes.
-        /// </param>
+        /// <param name="musicDuration"></param>
+        /// <param name="musicSampleRate"></param>
+        /// <param name="musicChannel"></param>
+        /// <param name="bitrate"></param>
+        /// <param name="musicSize"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
@@ -70,7 +60,7 @@ namespace MiniMax
             int? musicSampleRate,
             int? musicChannel,
             int? bitrate,
-            long? musicSize)
+            int? musicSize)
         {
             this.MusicDuration = musicDuration;
             this.MusicSampleRate = musicSampleRate;

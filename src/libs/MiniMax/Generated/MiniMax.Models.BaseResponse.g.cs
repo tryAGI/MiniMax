@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Common status envelope returned by every MiniMax API call.
+    /// Common status envelope returned by MiniMax API calls.
     /// </summary>
     public sealed partial class BaseResponse
     {
@@ -12,7 +12,7 @@ namespace MiniMax
         /// 0 for success. Non-zero indicates an error.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("status_code")]
-        public int? StatusCode { get; set; }
+        public long? StatusCode { get; set; }
 
         /// <summary>
         /// Human-readable status message.
@@ -39,7 +39,7 @@ namespace MiniMax
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public BaseResponse(
-            int? statusCode,
+            long? statusCode,
             string? statusMsg)
         {
             this.StatusCode = statusCode;

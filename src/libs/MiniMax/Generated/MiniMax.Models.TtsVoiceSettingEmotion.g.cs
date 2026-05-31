@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Emotional tone.
+    /// Optional speaking emotion.
     /// </summary>
     public enum TtsVoiceSettingEmotion
     {
@@ -27,11 +27,11 @@ namespace MiniMax
         /// <summary>
         /// 
         /// </summary>
-        Happy,
+        Fluent,
         /// <summary>
         /// 
         /// </summary>
-        Neutral,
+        Happy,
         /// <summary>
         /// 
         /// </summary>
@@ -40,6 +40,10 @@ namespace MiniMax
         /// 
         /// </summary>
         Surprised,
+        /// <summary>
+        /// 
+        /// </summary>
+        Whisper,
     }
 
     /// <summary>
@@ -58,10 +62,11 @@ namespace MiniMax
                 TtsVoiceSettingEmotion.Calm => "calm",
                 TtsVoiceSettingEmotion.Disgusted => "disgusted",
                 TtsVoiceSettingEmotion.Fearful => "fearful",
+                TtsVoiceSettingEmotion.Fluent => "fluent",
                 TtsVoiceSettingEmotion.Happy => "happy",
-                TtsVoiceSettingEmotion.Neutral => "neutral",
                 TtsVoiceSettingEmotion.Sad => "sad",
                 TtsVoiceSettingEmotion.Surprised => "surprised",
+                TtsVoiceSettingEmotion.Whisper => "whisper",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -76,10 +81,11 @@ namespace MiniMax
                 "calm" => TtsVoiceSettingEmotion.Calm,
                 "disgusted" => TtsVoiceSettingEmotion.Disgusted,
                 "fearful" => TtsVoiceSettingEmotion.Fearful,
+                "fluent" => TtsVoiceSettingEmotion.Fluent,
                 "happy" => TtsVoiceSettingEmotion.Happy,
-                "neutral" => TtsVoiceSettingEmotion.Neutral,
                 "sad" => TtsVoiceSettingEmotion.Sad,
                 "surprised" => TtsVoiceSettingEmotion.Surprised,
+                "whisper" => TtsVoiceSettingEmotion.Whisper,
                 _ => null,
             };
         }

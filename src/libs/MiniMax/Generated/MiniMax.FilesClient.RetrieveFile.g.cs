@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class FilesClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_RetrieveFileServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_RetrieveFileSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -40,11 +27,11 @@ namespace MiniMax
             };
         partial void PrepareRetrieveFileArguments(
             global::System.Net.Http.HttpClient httpClient,
-            ref string fileId);
+            ref long fileId);
         partial void PrepareRetrieveFileRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
-            string fileId);
+            long fileId);
         partial void ProcessRetrieveFileResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
@@ -55,16 +42,14 @@ namespace MiniMax
             ref string content);
 
         /// <summary>
-        /// Retrieve a file.<br/>
-        /// Fetches metadata (including a temporary `download_url`) for a<br/>
-        /// previously uploaded or generated file.
+        /// Retrieve file metadata.
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::MiniMax.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.FileRetrieveResponse> RetrieveFileAsync(
-            string fileId,
+            long fileId,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -77,16 +62,14 @@ namespace MiniMax
             return __response.Body;
         }
         /// <summary>
-        /// Retrieve a file.<br/>
-        /// Fetches metadata (including a temporary `download_url`) for a<br/>
-        /// previously uploaded or generated file.
+        /// Retrieve file metadata.
         /// </summary>
         /// <param name="fileId"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::MiniMax.ApiException"></exception>
         public async global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.FileRetrieveResponse>> RetrieveFileAsResponseAsync(
-            string fileId,
+            long fileId,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
@@ -121,11 +104,9 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/files/retrieve",
-                                baseUri: ResolveBaseUri(
-                                servers: s_RetrieveFileServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             __pathBuilder
-                                .AddRequiredParameter("file_id", fileId)
+                                .AddRequiredParameter("file_id", fileId.ToString()!)
                                 ;
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(

@@ -9,25 +9,31 @@ namespace MiniMax
     public sealed partial class VoiceCloneResponse
     {
         /// <summary>
-        /// Whether the reference audio contained sensitive content.
+        /// Whether the input audio was flagged by content checks.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_sensitive")]
         public bool? InputSensitive { get; set; }
 
         /// <summary>
-        /// Sensitive content category (if any).
+        /// Flag category when the input audio is sensitive.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("input_sensitive_type")]
         public int? InputSensitiveType { get; set; }
 
         /// <summary>
-        /// URL of the synthesized demo audio (when `text` was supplied).
+        /// Verification audio URL when sample text was supplied.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("demo_audio")]
         public string? DemoAudio { get; set; }
 
         /// <summary>
-        /// Common status envelope returned by every MiniMax API call.
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("extra_info")]
+        public global::MiniMax.VoiceCloneExtraInfo? ExtraInfo { get; set; }
+
+        /// <summary>
+        /// Common status envelope returned by MiniMax API calls.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("base_resp")]
         public global::MiniMax.BaseResponse? BaseResp { get; set; }
@@ -42,16 +48,17 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="VoiceCloneResponse" /> class.
         /// </summary>
         /// <param name="inputSensitive">
-        /// Whether the reference audio contained sensitive content.
+        /// Whether the input audio was flagged by content checks.
         /// </param>
         /// <param name="inputSensitiveType">
-        /// Sensitive content category (if any).
+        /// Flag category when the input audio is sensitive.
         /// </param>
         /// <param name="demoAudio">
-        /// URL of the synthesized demo audio (when `text` was supplied).
+        /// Verification audio URL when sample text was supplied.
         /// </param>
+        /// <param name="extraInfo"></param>
         /// <param name="baseResp">
-        /// Common status envelope returned by every MiniMax API call.
+        /// Common status envelope returned by MiniMax API calls.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
@@ -60,11 +67,13 @@ namespace MiniMax
             bool? inputSensitive,
             int? inputSensitiveType,
             string? demoAudio,
+            global::MiniMax.VoiceCloneExtraInfo? extraInfo,
             global::MiniMax.BaseResponse? baseResp)
         {
             this.InputSensitive = inputSensitive;
             this.InputSensitiveType = inputSensitiveType;
             this.DemoAudio = demoAudio;
+            this.ExtraInfo = extraInfo;
             this.BaseResp = baseResp;
         }
 

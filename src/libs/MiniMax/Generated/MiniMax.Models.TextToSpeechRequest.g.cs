@@ -9,23 +9,20 @@ namespace MiniMax
     public sealed partial class TextToSpeechRequest
     {
         /// <summary>
-        /// TTS model version: `speech-2.8-hd`, `speech-2.8-turbo`,<br/>
-        /// `speech-2.6-hd`, `speech-2.6-turbo`, `speech-02-hd`,<br/>
-        /// `speech-02-turbo`, `speech-01-hd`, `speech-01-turbo`.
+        /// Speech model.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Model { get; set; }
 
         /// <summary>
-        /// Input text, up to 10,000 characters. Use `\n` for paragraph breaks.
+        /// Input text.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Text { get; set; }
 
         /// <summary>
-        /// Whether to stream the output.<br/>
         /// Default Value: false
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
@@ -38,46 +35,57 @@ namespace MiniMax
         public global::MiniMax.TtsStreamOptions? StreamOptions { get; set; }
 
         /// <summary>
-        /// Voice configuration for TTS.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_setting")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::MiniMax.TtsVoiceSetting VoiceSetting { get; set; }
 
         /// <summary>
-        /// Audio output configuration for TTS.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_setting")]
         public global::MiniMax.TtsAudioSetting? AudioSetting { get; set; }
 
         /// <summary>
-        /// Custom pronunciation rules.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pronunciation_dict")]
         public global::MiniMax.TtsPronunciationDict? PronunciationDict { get; set; }
 
         /// <summary>
-        /// Voice effect/modulation settings.
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("timbre_weights")]
+        public global::System.Collections.Generic.IList<global::MiniMax.TimberWeight>? TimbreWeights { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.TextToSpeechRequestLanguageBoostJsonConverter))]
+        public global::MiniMax.TextToSpeechRequestLanguageBoost? LanguageBoost { get; set; }
+
+        /// <summary>
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_modify")]
         public global::MiniMax.TtsVoiceModify? VoiceModify { get; set; }
 
         /// <summary>
-        /// Mix multiple voices by weight (up to 4 entries).
+        /// Default Value: false
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("timber_weights")]
-        public global::System.Collections.Generic.IList<global::MiniMax.TimberWeight>? TimberWeights { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("subtitle_enable")]
+        public bool? SubtitleEnable { get; set; }
 
         /// <summary>
-        /// Bias pronunciation toward a specific language, or `auto` to<br/>
-        /// auto-detect. Examples — `English`, `Chinese`, `Japanese`,<br/>
-        /// `Korean`, `auto`.
+        /// Default Value: sentence
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
-        public string? LanguageBoost { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("subtitle_type")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.TextToSpeechRequestSubtitleTypeJsonConverter))]
+        public global::MiniMax.TextToSpeechRequestSubtitleType? SubtitleType { get; set; }
 
         /// <summary>
-        /// Output format (non-streaming only).<br/>
         /// Default Value: hex
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("output_format")]
@@ -85,11 +93,10 @@ namespace MiniMax
         public global::MiniMax.TextToSpeechRequestOutputFormat? OutputFormat { get; set; }
 
         /// <summary>
-        /// Whether to return subtitle files alongside the audio.<br/>
         /// Default Value: false
         /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("subtitle_enable")]
-        public bool? SubtitleEnable { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
+        public bool? AigcWatermark { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -101,44 +108,31 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="TextToSpeechRequest" /> class.
         /// </summary>
         /// <param name="model">
-        /// TTS model version: `speech-2.8-hd`, `speech-2.8-turbo`,<br/>
-        /// `speech-2.6-hd`, `speech-2.6-turbo`, `speech-02-hd`,<br/>
-        /// `speech-02-turbo`, `speech-01-hd`, `speech-01-turbo`.
+        /// Speech model.
         /// </param>
         /// <param name="text">
-        /// Input text, up to 10,000 characters. Use `\n` for paragraph breaks.
+        /// Input text.
         /// </param>
-        /// <param name="voiceSetting">
-        /// Voice configuration for TTS.
-        /// </param>
+        /// <param name="voiceSetting"></param>
         /// <param name="stream">
-        /// Whether to stream the output.<br/>
         /// Default Value: false
         /// </param>
         /// <param name="streamOptions"></param>
-        /// <param name="audioSetting">
-        /// Audio output configuration for TTS.
+        /// <param name="audioSetting"></param>
+        /// <param name="pronunciationDict"></param>
+        /// <param name="timbreWeights"></param>
+        /// <param name="languageBoost"></param>
+        /// <param name="voiceModify"></param>
+        /// <param name="subtitleEnable">
+        /// Default Value: false
         /// </param>
-        /// <param name="pronunciationDict">
-        /// Custom pronunciation rules.
-        /// </param>
-        /// <param name="voiceModify">
-        /// Voice effect/modulation settings.
-        /// </param>
-        /// <param name="timberWeights">
-        /// Mix multiple voices by weight (up to 4 entries).
-        /// </param>
-        /// <param name="languageBoost">
-        /// Bias pronunciation toward a specific language, or `auto` to<br/>
-        /// auto-detect. Examples — `English`, `Chinese`, `Japanese`,<br/>
-        /// `Korean`, `auto`.
+        /// <param name="subtitleType">
+        /// Default Value: sentence
         /// </param>
         /// <param name="outputFormat">
-        /// Output format (non-streaming only).<br/>
         /// Default Value: hex
         /// </param>
-        /// <param name="subtitleEnable">
-        /// Whether to return subtitle files alongside the audio.<br/>
+        /// <param name="aigcWatermark">
         /// Default Value: false
         /// </param>
 #if NET7_0_OR_GREATER
@@ -152,11 +146,13 @@ namespace MiniMax
             global::MiniMax.TtsStreamOptions? streamOptions,
             global::MiniMax.TtsAudioSetting? audioSetting,
             global::MiniMax.TtsPronunciationDict? pronunciationDict,
+            global::System.Collections.Generic.IList<global::MiniMax.TimberWeight>? timbreWeights,
+            global::MiniMax.TextToSpeechRequestLanguageBoost? languageBoost,
             global::MiniMax.TtsVoiceModify? voiceModify,
-            global::System.Collections.Generic.IList<global::MiniMax.TimberWeight>? timberWeights,
-            string? languageBoost,
+            bool? subtitleEnable,
+            global::MiniMax.TextToSpeechRequestSubtitleType? subtitleType,
             global::MiniMax.TextToSpeechRequestOutputFormat? outputFormat,
-            bool? subtitleEnable)
+            bool? aigcWatermark)
         {
             this.Model = model ?? throw new global::System.ArgumentNullException(nameof(model));
             this.Text = text ?? throw new global::System.ArgumentNullException(nameof(text));
@@ -165,11 +161,13 @@ namespace MiniMax
             this.VoiceSetting = voiceSetting ?? throw new global::System.ArgumentNullException(nameof(voiceSetting));
             this.AudioSetting = audioSetting;
             this.PronunciationDict = pronunciationDict;
-            this.VoiceModify = voiceModify;
-            this.TimberWeights = timberWeights;
+            this.TimbreWeights = timbreWeights;
             this.LanguageBoost = languageBoost;
-            this.OutputFormat = outputFormat;
+            this.VoiceModify = voiceModify;
             this.SubtitleEnable = subtitleEnable;
+            this.SubtitleType = subtitleType;
+            this.OutputFormat = outputFormat;
+            this.AigcWatermark = aigcWatermark;
         }
 
         /// <summary>

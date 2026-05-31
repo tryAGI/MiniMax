@@ -4,18 +4,18 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Audio output configuration for music generation.
+    /// 
     /// </summary>
     public sealed partial class MusicAudioSetting
     {
         /// <summary>
-        /// Audio sample rate in Hz (e.g., 44100).
+        /// Audio sample rate in Hz.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sample_rate")]
         public int? SampleRate { get; set; }
 
         /// <summary>
-        /// Bitrate in bits/sec (e.g., 256000).
+        /// Audio bitrate in bits per second.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("bitrate")]
         public int? Bitrate { get; set; }
@@ -37,10 +37,10 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="MusicAudioSetting" /> class.
         /// </summary>
         /// <param name="sampleRate">
-        /// Audio sample rate in Hz (e.g., 44100).
+        /// Audio sample rate in Hz.
         /// </param>
         /// <param name="bitrate">
-        /// Bitrate in bits/sec (e.g., 256000).
+        /// Audio bitrate in bits per second.
         /// </param>
         /// <param name="format">
         /// Audio format.

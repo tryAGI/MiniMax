@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Task lifecycle status.
+    /// Video generation task state.
     /// </summary>
     public enum VideoTaskStatus
     {

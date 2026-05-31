@@ -6,19 +6,6 @@ namespace MiniMax
     public partial class VideoClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_CreateVideoGenerationTaskServers = new global::MiniMax.AutoSDKServer[]
-        {            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimax-io",
-                name: "MiniMax Global Production API",
-                url: "https://api.minimax.io/",
-                description: "MiniMax Global Production API"),
-            new global::MiniMax.AutoSDKServer(
-                id: "https-api-minimaxi-chat",
-                name: "MiniMax China Mainland API",
-                url: "https://api.minimaxi.chat/",
-                description: "MiniMax China Mainland API"),
-        };
-
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateVideoGenerationTaskSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -56,11 +43,7 @@ namespace MiniMax
 
         /// <summary>
         /// Create a video generation task.<br/>
-        /// Creates an asynchronous video generation task using Hailuo video<br/>
-        /// models. Returns a `task_id` that must be polled via<br/>
-        /// `GET /v1/query/video_generation` until the task succeeds or fails.<br/>
-        /// Once complete, the resulting file is retrieved via<br/>
-        /// `GET /v1/files/retrieve`.
+        /// Creates an asynchronous Hailuo video generation task for text-to-video, image-to-video, start-end, or subject-reference modes.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -83,11 +66,7 @@ namespace MiniMax
         }
         /// <summary>
         /// Create a video generation task.<br/>
-        /// Creates an asynchronous video generation task using Hailuo video<br/>
-        /// models. Returns a `task_id` that must be polled via<br/>
-        /// `GET /v1/query/video_generation` until the task succeeds or fails.<br/>
-        /// Once complete, the resulting file is retrieved via<br/>
-        /// `GET /v1/files/retrieve`.
+        /// Creates an asynchronous Hailuo video generation task for text-to-video, image-to-video, start-end, or subject-reference modes.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
@@ -132,9 +111,7 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/video_generation",
-                                baseUri: ResolveBaseUri(
-                                servers: s_CreateVideoGenerationTaskServers,
-                                defaultBaseUrl: "https://api.minimax.io/"));
+                                baseUri: HttpClient.BaseAddress);
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
@@ -458,46 +435,40 @@ namespace MiniMax
         }
         /// <summary>
         /// Create a video generation task.<br/>
-        /// Creates an asynchronous video generation task using Hailuo video<br/>
-        /// models. Returns a `task_id` that must be polled via<br/>
-        /// `GET /v1/query/video_generation` until the task succeeds or fails.<br/>
-        /// Once complete, the resulting file is retrieved via<br/>
-        /// `GET /v1/files/retrieve`.
+        /// Creates an asynchronous Hailuo video generation task for text-to-video, image-to-video, start-end, or subject-reference modes.
         /// </summary>
         /// <param name="model">
-        /// Model identifier. Popular choices:<br/>
-        /// `MiniMax-Hailuo-2.3`, `MiniMax-Hailuo-2.3-Fast`,<br/>
-        /// `MiniMax-Hailuo-02`, `T2V-01-Director`, `I2V-01-Director`,<br/>
-        /// `S2V-01`.
+        /// Video generation model.
         /// </param>
         /// <param name="prompt">
-        /// Natural-language description of the desired video motion and content.
+        /// Text prompt for text-to-video or guided image/video generation.
         /// </param>
         /// <param name="promptOptimizer">
-        /// Whether to auto-optimize the prompt for better results.<br/>
         /// Default Value: true
         /// </param>
+        /// <param name="fastPretreatment">
+        /// Faster prompt preprocessing for supported models.<br/>
+        /// Default Value: false
+        /// </param>
         /// <param name="firstFrameImage">
-        /// Starting frame image URL or data URI (image-to-video and start-end modes).
+        /// First frame image URL or data URL.
         /// </param>
         /// <param name="lastFrameImage">
-        /// Ending frame image URL or data URI (start-end mode only).
+        /// Last frame image URL or data URL.
         /// </param>
         /// <param name="subjectReference">
-        /// Subject references for subject-reference generation (S2V).
+        /// Subject references for `S2V-01`.
         /// </param>
         /// <param name="duration">
-        /// Video length in seconds (typically 6 or 10 depending on model).
+        /// Video duration in seconds.
         /// </param>
         /// <param name="resolution">
-        /// Output resolution.
+        /// Requested output resolution.
         /// </param>
         /// <param name="callbackUrl">
-        /// Optional webhook URL invoked when the task completes.
+        /// Webhook URL for async task updates.
         /// </param>
-        /// <param name="aigcWatermark">
-        /// Whether to embed an AIGC watermark in the output.
-        /// </param>
+        /// <param name="aigcWatermark"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
@@ -505,6 +476,7 @@ namespace MiniMax
             string model,
             string? prompt = default,
             bool? promptOptimizer = default,
+            bool? fastPretreatment = default,
             string? firstFrameImage = default,
             string? lastFrameImage = default,
             global::System.Collections.Generic.IList<global::MiniMax.VideoSubjectReference>? subjectReference = default,
@@ -520,6 +492,7 @@ namespace MiniMax
                 Model = model,
                 Prompt = prompt,
                 PromptOptimizer = promptOptimizer,
+                FastPretreatment = fastPretreatment,
                 FirstFrameImage = firstFrameImage,
                 LastFrameImage = lastFrameImage,
                 SubjectReference = subjectReference,

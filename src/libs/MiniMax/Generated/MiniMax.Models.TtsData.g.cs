@@ -9,22 +9,22 @@ namespace MiniMax
     public sealed partial class TtsData
     {
         /// <summary>
-        /// Hex-encoded audio bytes (or URL if `output_format=url`).
+        /// Hex-encoded audio or downloadable URL.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio")]
         public string? Audio { get; set; }
 
         /// <summary>
-        /// 1 when partial, 2 when complete.
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
-        public int? Status { get; set; }
-
-        /// <summary>
-        /// URL of the generated subtitle file (when `subtitle_enable=true`).
+        /// Subtitle download URL when subtitles are enabled.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("subtitle_file")]
         public string? SubtitleFile { get; set; }
+
+        /// <summary>
+        /// 1 while streaming, 2 when complete.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("status")]
+        public int? Status { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -36,25 +36,25 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="TtsData" /> class.
         /// </summary>
         /// <param name="audio">
-        /// Hex-encoded audio bytes (or URL if `output_format=url`).
-        /// </param>
-        /// <param name="status">
-        /// 1 when partial, 2 when complete.
+        /// Hex-encoded audio or downloadable URL.
         /// </param>
         /// <param name="subtitleFile">
-        /// URL of the generated subtitle file (when `subtitle_enable=true`).
+        /// Subtitle download URL when subtitles are enabled.
+        /// </param>
+        /// <param name="status">
+        /// 1 while streaming, 2 when complete.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public TtsData(
             string? audio,
-            int? status,
-            string? subtitleFile)
+            string? subtitleFile,
+            int? status)
         {
             this.Audio = audio;
-            this.Status = status;
             this.SubtitleFile = subtitleFile;
+            this.Status = status;
         }
 
         /// <summary>

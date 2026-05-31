@@ -9,22 +9,22 @@ namespace MiniMax
     public sealed partial class FileUploadRequest
     {
         /// <summary>
-        /// File purpose — `voice_clone`, `prompt_audio`, `retrieval`,<br/>
-        /// `fine-tune`, `fine-tune-results`.
+        /// Upload purpose.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("purpose")]
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.FileUploadRequestPurposeJsonConverter))]
         [global::System.Text.Json.Serialization.JsonRequired]
-        public required string Purpose { get; set; }
+        public required global::MiniMax.FileUploadRequestPurpose Purpose { get; set; }
 
         /// <summary>
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required byte[] File { get; set; }
 
         /// <summary>
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("filename")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -40,24 +40,23 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="FileUploadRequest" /> class.
         /// </summary>
         /// <param name="purpose">
-        /// File purpose — `voice_clone`, `prompt_audio`, `retrieval`,<br/>
-        /// `fine-tune`, `fine-tune-results`.
+        /// Upload purpose.
         /// </param>
         /// <param name="file">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
         /// <param name="filename">
-        /// The file to upload (MP3, M4A, WAV, image, video, etc.).
+        /// File to upload.
         /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public FileUploadRequest(
-            string purpose,
+            global::MiniMax.FileUploadRequestPurpose purpose,
             byte[] file,
             string filename)
         {
-            this.Purpose = purpose ?? throw new global::System.ArgumentNullException(nameof(purpose));
+            this.Purpose = purpose;
             this.File = file ?? throw new global::System.ArgumentNullException(nameof(file));
             this.Filename = filename ?? throw new global::System.ArgumentNullException(nameof(filename));
         }

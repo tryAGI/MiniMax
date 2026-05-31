@@ -216,8 +216,13 @@ public static class MiniMaxToolExtensions
                 string? sampleText,
                 CancellationToken cancellationToken) =>
             {
+                if (!long.TryParse(fileId, out var parsedFileId))
+                {
+                    return "error: file_id must be a numeric MiniMax file ID.";
+                }
+
                 var response = await client.Speech.CreateVoiceCloneAsync(
-                    fileId: fileId,
+                    fileId: parsedFileId,
                     voiceId: voiceId,
                     text: sampleText,
                     needNoiseReduction: true,

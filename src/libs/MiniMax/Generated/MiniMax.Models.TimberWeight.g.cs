@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// Voice mix entry (combine multiple voices with weights).
+    /// 
     /// </summary>
     public sealed partial class TimberWeight
     {
@@ -12,13 +12,15 @@ namespace MiniMax
         /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_id")]
-        public string? VoiceId { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required string VoiceId { get; set; }
 
         /// <summary>
-        /// Weight, 1-100.
+        /// 
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("weight")]
-        public int? Weight { get; set; }
+        [global::System.Text.Json.Serialization.JsonRequired]
+        public required int Weight { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -30,17 +32,15 @@ namespace MiniMax
         /// Initializes a new instance of the <see cref="TimberWeight" /> class.
         /// </summary>
         /// <param name="voiceId"></param>
-        /// <param name="weight">
-        /// Weight, 1-100.
-        /// </param>
+        /// <param name="weight"></param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public TimberWeight(
-            string? voiceId,
-            int? weight)
+            string voiceId,
+            int weight)
         {
-            this.VoiceId = voiceId;
+            this.VoiceId = voiceId ?? throw new global::System.ArgumentNullException(nameof(voiceId));
             this.Weight = weight;
         }
 
