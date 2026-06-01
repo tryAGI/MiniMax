@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Nuget">
-    <Description>C# SDK for the MiniMax Platform API — video generation (Hailuo), music generation, text-to-speech (T2A v2), and voice cloning.</Description>
-    <PackageTags>api;client;sdk;dotnet;openapi;minimax;hailuo;video-generation;music-generation;tts;voice-clone;ai;autosdk</PackageTags>
+    <Description>C# SDK for the MiniMax Platform API — image generation, Hailuo video generation, music and lyrics generation, text-to-speech, voice workflows, and file management.</Description>
+    <PackageTags>api;client;sdk;dotnet;openapi;minimax;image-generation;hailuo;video-generation;music-generation;lyrics-generation;tts;voice-clone;voice-design;ai;autosdk</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
