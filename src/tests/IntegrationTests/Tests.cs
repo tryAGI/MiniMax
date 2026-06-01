@@ -5,10 +5,7 @@ public partial class Tests
 {
     private static MiniMaxClient GetAuthenticatedClient()
     {
-        var apiKey =
-            Environment.GetEnvironmentVariable("MINIMAX_API_KEY") is { Length: > 0 } apiKeyValue
-                ? apiKeyValue
-                : throw new AssertInconclusiveException("MINIMAX_API_KEY environment variable is not found.");
+        var apiKey = TestEnvironment.GetRequiredVariable("MINIMAX_API_KEY");
 
         var client = new MiniMaxClient(apiKey);
         

@@ -40,6 +40,20 @@ using MiniMax;
 using var client = new MiniMaxClient(apiKey);
 ```
 
+## Local Validation
+
+Validate a local key against MiniMax's documented free music model without running the full integration suite:
+
+```bash
+./scripts/smoke-minimax-key.sh
+```
+
+To let local integration tests read a repo-local `.env` while keeping CI on normal environment secrets, opt in explicitly:
+
+```bash
+MINIMAX_LOAD_DOTENV=1 dotnet test src/tests/IntegrationTests/
+```
+
 <!-- EXAMPLES:START -->
 ### Create a video generation task
 Submits a Hailuo video generation task and returns the `task_id`.
