@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+install_autosdk_cli() {
+  dotnet tool update --global autosdk.cli --prerelease >/dev/null 2>&1 || \
+    dotnet tool install --global autosdk.cli --prerelease
+}
+
 # MiniMax Platform has no public bundled OpenAPI spec — `openapi.yaml` is
 # handcrafted from the published docs at https://platform.minimaxi.com/docs.
 #
@@ -10,8 +15,7 @@ set -euo pipefail
 #
 # Auth: standard Bearer token from
 # platform.minimaxi.com/user-center/basic-information/interface-key.
-
-dotnet tool install --global autosdk.cli --prerelease
+install_autosdk_cli
 rm -rf Generated
 
 autosdk generate openapi.yaml \
