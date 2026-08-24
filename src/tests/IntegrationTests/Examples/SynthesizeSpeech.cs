@@ -16,7 +16,7 @@ public partial class Tests
         using var client = GetAuthenticatedClient();
 
         var response = await client.Speech.CreateTextToSpeechAsync(
-            model: "speech-2.6-turbo",
+            model: MiniMaxSpeechModels.Speech28Hd,
             text: "Hello from MiniMax T2A version 2. This is a test of the synthesis pipeline.",
             voiceSetting: new TtsVoiceSetting
             {

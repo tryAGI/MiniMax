@@ -150,11 +150,11 @@ public static class MiniMaxToolExtensions
     /// Creates an <see cref="AIFunction"/> that synthesizes speech via the T2A v2 endpoint.
     /// </summary>
     /// <param name="client">The MiniMax client.</param>
-    /// <param name="model">TTS model (default: <c>speech-2.6-turbo</c>).</param>
+    /// <param name="model">TTS model (default: <c>speech-2.8-turbo</c>).</param>
     /// <param name="defaultVoiceId">Default voice ID if the caller does not supply one.</param>
     public static AIFunction AsSynthesizeSpeechTool(
         this MiniMaxClient client,
-        string model = "speech-2.6-turbo",
+        string model = MiniMaxSpeechModels.Speech28Turbo,
         string defaultVoiceId = "male-qn-qingse")
     {
         ArgumentNullException.ThrowIfNull(client);
