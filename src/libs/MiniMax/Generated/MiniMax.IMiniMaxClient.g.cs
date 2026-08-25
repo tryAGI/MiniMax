@@ -11,8 +11,9 @@ namespace MiniMax
     /// `/v1/text/chatcompletion_v2`, Anthropic-compatible chat, embeddings, and WebSocket<br/>
     /// TTS are excluded from this SDK surface.<br/>
     /// **Authentication:** `Authorization: Bearer &lt;API_KEY&gt;` from the<br/>
-    /// [MiniMax Platform](https://platform.minimaxi.com/user-center/basic-information/interface-key).<br/>
-    /// **Base URL:** `https://api.minimaxi.com`.<br/>
+    /// [MiniMax Platform](https://platform.minimax.io/user-center/basic-information/interface-key).<br/>
+    /// **Base URLs:** `https://api.minimax.io` for international accounts and<br/>
+    /// `https://api.minimaxi.com` for accounts registered in mainland China.<br/>
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
@@ -27,6 +28,27 @@ namespace MiniMax
         /// The base URL for the API.
         /// </summary>
         public System.Uri? BaseUri { get; }
+
+
+        /// <summary>
+        /// The server options available for this client.
+        /// </summary>
+        public global::System.Collections.Generic.IReadOnlyList<global::MiniMax.AutoSDKServer> AvailableServers { get; }
+
+        /// <summary>
+        /// The currently selected server for this client, if any.
+        /// </summary>
+        public global::MiniMax.AutoSDKServer? SelectedServer { get; set; }
+
+        /// <summary>
+        /// Selects one of the generated server options by id.
+        /// </summary>
+        public bool TrySelectServer(string serverId);
+
+        /// <summary>
+        /// Clears the currently selected server.
+        /// </summary>
+        public void ClearSelectedServer();
 
         /// <summary>
         /// The authorizations to use for the requests.

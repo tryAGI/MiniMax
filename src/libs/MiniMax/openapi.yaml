@@ -11,9 +11,10 @@ info:
     TTS are excluded from this SDK surface.
 
     **Authentication:** `Authorization: Bearer <API_KEY>` from the
-    [MiniMax Platform](https://platform.minimaxi.com/user-center/basic-information/interface-key).
+    [MiniMax Platform](https://platform.minimax.io/user-center/basic-information/interface-key).
 
-    **Base URL:** `https://api.minimaxi.com`.
+    **Base URLs:** `https://api.minimax.io` for international accounts and
+    `https://api.minimaxi.com` for accounts registered in mainland China.
   version: 1.0.0
   contact:
     name: MiniMax Platform
@@ -22,8 +23,10 @@ info:
     name: Proprietary
     url: https://platform.minimaxi.com
 servers:
+  - url: https://api.minimax.io
+    description: MiniMax International Production API
   - url: https://api.minimaxi.com
-    description: MiniMax Production API
+    description: MiniMax Mainland China Production API
 security:
   - BearerAuth: []
 tags:

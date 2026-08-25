@@ -6,6 +6,19 @@ namespace MiniMax
     public partial class VideoClient
     {
 
+        private static readonly global::MiniMax.AutoSDKServer[] s_GetVideoTemplateGenerationTaskServers = new global::MiniMax.AutoSDKServer[]
+        {            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimax-io",
+                name: "MiniMax International Production API",
+                url: "https://api.minimax.io/",
+                description: "MiniMax International Production API"),
+            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimaxi-com",
+                name: "MiniMax Mainland China Production API",
+                url: "https://api.minimaxi.com/",
+                description: "MiniMax Mainland China Production API"),
+        };
+
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_GetVideoTemplateGenerationTaskSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -104,7 +117,9 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/query/video_template_generation",
-                                baseUri: HttpClient.BaseAddress);
+                                baseUri: ResolveBaseUri(
+                                servers: s_GetVideoTemplateGenerationTaskServers,
+                                defaultBaseUrl: "https://api.minimax.io/"));
                             __pathBuilder
                                 .AddRequiredParameter("task_id", taskId)
                                 ;

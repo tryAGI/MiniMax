@@ -6,6 +6,19 @@ namespace MiniMax
     public partial class MusicClient
     {
 
+        private static readonly global::MiniMax.AutoSDKServer[] s_CreateMusicCoverPreprocessServers = new global::MiniMax.AutoSDKServer[]
+        {            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimax-io",
+                name: "MiniMax International Production API",
+                url: "https://api.minimax.io/",
+                description: "MiniMax International Production API"),
+            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimaxi-com",
+                name: "MiniMax Mainland China Production API",
+                url: "https://api.minimaxi.com/",
+                description: "MiniMax Mainland China Production API"),
+        };
+
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateMusicCoverPreprocessSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -109,7 +122,9 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/music_cover_preprocess",
-                                baseUri: HttpClient.BaseAddress);
+                                baseUri: ResolveBaseUri(
+                                servers: s_CreateMusicCoverPreprocessServers,
+                                defaultBaseUrl: "https://api.minimax.io/"));
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,

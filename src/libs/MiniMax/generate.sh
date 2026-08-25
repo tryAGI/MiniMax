@@ -7,14 +7,14 @@ install_autosdk_cli() {
 }
 
 # MiniMax Platform has no public bundled OpenAPI spec — `openapi.yaml` is
-# handcrafted from the published docs at https://platform.minimaxi.com/docs.
+# handcrafted from the published docs at https://platform.minimax.io/docs.
 #
 # Scope: Image, Video (Hailuo + templates), Music, Lyrics, TTS, Async TTS,
 # Voice Clone, Voice Design/Management, and Files.
 # LLM chat completions are excluded — use `tryAGI.OpenAI.CustomProviders.Minimax`.
 #
 # Auth: standard Bearer token from
-# platform.minimaxi.com/user-center/basic-information/interface-key.
+# platform.minimax.io/user-center/basic-information/interface-key.
 install_autosdk_cli
 rm -rf Generated
 

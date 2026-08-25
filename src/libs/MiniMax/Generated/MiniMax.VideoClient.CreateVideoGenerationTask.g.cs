@@ -6,6 +6,19 @@ namespace MiniMax
     public partial class VideoClient
     {
 
+        private static readonly global::MiniMax.AutoSDKServer[] s_CreateVideoGenerationTaskServers = new global::MiniMax.AutoSDKServer[]
+        {            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimax-io",
+                name: "MiniMax International Production API",
+                url: "https://api.minimax.io/",
+                description: "MiniMax International Production API"),
+            new global::MiniMax.AutoSDKServer(
+                id: "https-api-minimaxi-com",
+                name: "MiniMax Mainland China Production API",
+                url: "https://api.minimaxi.com/",
+                description: "MiniMax Mainland China Production API"),
+        };
+
 
         private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateVideoGenerationTaskSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
@@ -111,7 +124,9 @@ namespace MiniMax
 
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/video_generation",
-                                baseUri: HttpClient.BaseAddress);
+                                baseUri: ResolveBaseUri(
+                                servers: s_CreateVideoGenerationTaskServers,
+                                defaultBaseUrl: "https://api.minimax.io/"));
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
                     path: __path,
