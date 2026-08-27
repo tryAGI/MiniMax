@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VideoGenerationRequest
     {
@@ -72,7 +72,7 @@ namespace MiniMax
         public string? CallbackUrl { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
         public bool? AigcWatermark { get; set; }

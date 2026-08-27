@@ -4,12 +4,12 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class FileDeleteResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file_id")]
         public long? FileId { get; set; }

@@ -4,18 +4,18 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageGenerationResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("data")]
         public global::MiniMax.ImageGenerationData? Data { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("metadata")]
         public global::MiniMax.ImageGenerationMetadata? Metadata { get; set; }

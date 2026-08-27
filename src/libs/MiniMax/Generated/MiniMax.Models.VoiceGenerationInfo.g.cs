@@ -4,24 +4,24 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VoiceGenerationInfo
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_id")]
         public string? VoiceId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public global::System.Collections.Generic.IList<string>? Description { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created_time")]
         public string? CreatedTime { get; set; }

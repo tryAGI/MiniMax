@@ -4,30 +4,30 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class TtsVoiceModify
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pitch")]
         public int? Pitch { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("intensity")]
         public int? Intensity { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("timbre")]
         public int? Timbre { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sound_effects")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.TtsVoiceModifySoundEffectsJsonConverter))]

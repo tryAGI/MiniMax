@@ -4,28 +4,28 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum FileDeleteRequestPurpose
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PromptAudio,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         T2aAsync,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         T2aAsyncInput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VideoGeneration,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceClone,
     }

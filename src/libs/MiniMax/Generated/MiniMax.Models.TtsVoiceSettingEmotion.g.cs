@@ -9,39 +9,39 @@ namespace MiniMax
     public enum TtsVoiceSettingEmotion
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Angry,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Calm,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Disgusted,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fearful,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fluent,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Happy,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sad,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Surprised,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Whisper,
     }

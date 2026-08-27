@@ -9,11 +9,11 @@ namespace MiniMax
     public enum MusicGenerationRequestOutputFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Hex,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Url,
     }

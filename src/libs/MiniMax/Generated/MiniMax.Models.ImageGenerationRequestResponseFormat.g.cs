@@ -10,11 +10,11 @@ namespace MiniMax
     public enum ImageGenerationRequestResponseFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Base64,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Url,
     }

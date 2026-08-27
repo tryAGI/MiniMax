@@ -4,24 +4,24 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetVoicesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("system_voice")]
         public global::System.Collections.Generic.IList<global::MiniMax.SystemVoiceInfo>? SystemVoice { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_cloning")]
         public global::System.Collections.Generic.IList<global::MiniMax.VoiceCloningInfo>? VoiceCloning { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_generation")]
         public global::System.Collections.Generic.IList<global::MiniMax.VoiceGenerationInfo>? VoiceGeneration { get; set; }

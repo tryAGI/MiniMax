@@ -9,15 +9,15 @@ namespace MiniMax
     public enum VideoGenerationRequestResolution
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x1080p,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x720p,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         x768p,
     }

@@ -9,7 +9,7 @@ namespace MiniMax
     public enum ImageSubjectReferenceType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Character,
     }

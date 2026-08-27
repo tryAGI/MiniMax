@@ -150,7 +150,7 @@ namespace MiniMax
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                 global::MiniMax.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,
@@ -469,7 +469,7 @@ namespace MiniMax
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                 global::MiniMax.AutoSDKRequestOptionsSupport.ApplyHeaders(
                     request: __httpRequest,

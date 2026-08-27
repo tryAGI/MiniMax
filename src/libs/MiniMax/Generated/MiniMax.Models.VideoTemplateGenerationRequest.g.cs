@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VideoTemplateGenerationRequest
     {
@@ -16,13 +16,13 @@ namespace MiniMax
         public required string TemplateId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("text_inputs")]
         public global::System.Collections.Generic.IList<global::MiniMax.VideoTemplateTextInput>? TextInputs { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("media_inputs")]
         public global::System.Collections.Generic.IList<global::MiniMax.VideoTemplateMediaInput>? MediaInputs { get; set; }

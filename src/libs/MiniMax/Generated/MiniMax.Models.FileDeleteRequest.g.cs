@@ -4,19 +4,19 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class FileDeleteRequest
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("file_id")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required long FileId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("purpose")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.FileDeleteRequestPurposeJsonConverter))]

@@ -9,11 +9,11 @@ namespace MiniMax
     public enum LyricsGenerationRequestMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Edit,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WriteFullSong,
     }

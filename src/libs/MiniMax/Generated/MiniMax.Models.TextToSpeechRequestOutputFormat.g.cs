@@ -9,11 +9,11 @@ namespace MiniMax
     public enum TextToSpeechRequestOutputFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Hex,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Url,
     }

@@ -9,7 +9,7 @@ namespace MiniMax
     public sealed partial class AsyncTextToSpeechRequest
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -28,33 +28,33 @@ namespace MiniMax
         public long? TextFileId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_setting")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::MiniMax.AsyncTextToSpeechVoiceSetting VoiceSetting { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_setting")]
         public global::MiniMax.AsyncTextToSpeechAudioSetting? AudioSetting { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pronunciation_dict")]
         public global::MiniMax.AsyncTextToSpeechPronunciationDict? PronunciationDict { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.AsyncTextToSpeechRequestLanguageBoostJsonConverter))]
         public global::MiniMax.AsyncTextToSpeechRequestLanguageBoost? LanguageBoost { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_modify")]
         public global::MiniMax.TtsVoiceModify? VoiceModify { get; set; }

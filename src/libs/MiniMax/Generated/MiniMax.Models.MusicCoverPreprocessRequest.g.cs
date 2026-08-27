@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class MusicCoverPreprocessRequest
     {
@@ -16,13 +16,13 @@ namespace MiniMax
         public required string Model { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_url")]
         public string? AudioUrl { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_base64")]
         public string? AudioBase64 { get; set; }

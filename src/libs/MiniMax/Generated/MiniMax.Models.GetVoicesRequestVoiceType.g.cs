@@ -4,24 +4,24 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum GetVoicesRequestVoiceType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         All,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         System,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceCloning,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceGeneration,
     }

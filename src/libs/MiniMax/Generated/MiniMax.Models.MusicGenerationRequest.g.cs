@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class MusicGenerationRequest
     {
@@ -41,13 +41,13 @@ namespace MiniMax
         public global::MiniMax.MusicGenerationRequestOutputFormat? OutputFormat { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_setting")]
         public global::MiniMax.MusicAudioSetting? AudioSetting { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
         public bool? AigcWatermark { get; set; }

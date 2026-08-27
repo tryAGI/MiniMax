@@ -20,7 +20,7 @@ namespace MiniMax.JsonConverters
                     {
                         return global::MiniMax.TtsVoiceSettingEmotionExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

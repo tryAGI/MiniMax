@@ -4,24 +4,24 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AsyncTextToSpeechTaskStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Expired,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Failed,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Processing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }
