@@ -20,7 +20,7 @@ namespace MiniMax.JsonConverters
                     {
                         return global::MiniMax.FileUploadRequestPurposeExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

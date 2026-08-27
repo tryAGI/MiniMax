@@ -20,7 +20,7 @@ namespace MiniMax.JsonConverters
                     {
                         return global::MiniMax.MusicAudioSettingFormatExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageGenerationRequest
     {
@@ -62,7 +62,7 @@ namespace MiniMax
         public global::MiniMax.ImageGenerationRequestResponseFormat? ResponseFormat { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("seed")]
         public long? Seed { get; set; }
@@ -81,7 +81,7 @@ namespace MiniMax
         public bool? PromptOptimizer { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
         public bool? AigcWatermark { get; set; }

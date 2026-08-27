@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VoiceCloneRequest
     {
@@ -23,7 +23,7 @@ namespace MiniMax
         public required string VoiceId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("clone_prompt")]
         public global::MiniMax.VoiceClonePrompt? ClonePrompt { get; set; }
@@ -41,7 +41,7 @@ namespace MiniMax
         public string? Model { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.VoiceCloneRequestLanguageBoostJsonConverter))]

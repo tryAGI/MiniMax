@@ -4,16 +4,16 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum DeleteVoiceRequestVoiceType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceCloning,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceGeneration,
     }

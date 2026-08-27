@@ -4,24 +4,24 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum TtsVoiceModifySoundEffects
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         AuditoriumEcho,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         LofiTelephone,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Robotic,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SpaciousEcho,
     }

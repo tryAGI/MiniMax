@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VoiceCloneResponse
     {
@@ -27,7 +27,7 @@ namespace MiniMax
         public string? DemoAudio { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("extra_info")]
         public global::MiniMax.VoiceCloneExtraInfo? ExtraInfo { get; set; }

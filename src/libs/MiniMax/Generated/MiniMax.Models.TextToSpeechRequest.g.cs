@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class TextToSpeechRequest
     {
@@ -29,45 +29,45 @@ namespace MiniMax
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream_options")]
         public global::MiniMax.TtsStreamOptions? StreamOptions { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_setting")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required global::MiniMax.TtsVoiceSetting VoiceSetting { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("audio_setting")]
         public global::MiniMax.TtsAudioSetting? AudioSetting { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("pronunciation_dict")]
         public global::MiniMax.TtsPronunciationDict? PronunciationDict { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("timbre_weights")]
         public global::System.Collections.Generic.IList<global::MiniMax.TimberWeight>? TimbreWeights { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("language_boost")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.TextToSpeechRequestLanguageBoostJsonConverter))]
         public global::MiniMax.TextToSpeechRequestLanguageBoost? LanguageBoost { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("voice_modify")]
         public global::MiniMax.TtsVoiceModify? VoiceModify { get; set; }

@@ -9,15 +9,15 @@ namespace MiniMax
     public enum TextToSpeechRequestSubtitleType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Sentence,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Word,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         WordStreaming,
     }

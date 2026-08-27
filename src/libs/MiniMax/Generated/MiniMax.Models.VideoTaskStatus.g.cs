@@ -9,23 +9,23 @@ namespace MiniMax
     public enum VideoTaskStatus
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Fail,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Preparing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Processing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Queueing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Success,
     }

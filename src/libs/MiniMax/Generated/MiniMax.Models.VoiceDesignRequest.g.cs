@@ -4,7 +4,7 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class VoiceDesignRequest
     {
@@ -29,7 +29,7 @@ namespace MiniMax
         public string? VoiceId { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("aigc_watermark")]
         public bool? AigcWatermark { get; set; }

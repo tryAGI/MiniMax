@@ -9,7 +9,7 @@ namespace MiniMax
     public enum VideoSubjectReferenceType
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Character,
     }

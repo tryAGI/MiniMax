@@ -9,15 +9,15 @@ namespace MiniMax
     public enum FileUploadRequestPurpose
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PromptAudio,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         T2aAsyncInput,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         VoiceClone,
     }

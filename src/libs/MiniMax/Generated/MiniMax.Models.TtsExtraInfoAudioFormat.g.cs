@@ -4,36 +4,36 @@
 namespace MiniMax
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum TtsExtraInfoAudioFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Flac,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Mp3,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Opus,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Pcm,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PcmuRaw,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PcmuWav,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Wav,
     }
