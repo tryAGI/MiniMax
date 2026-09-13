@@ -38,7 +38,7 @@ namespace MiniMax
 
         internal global::MiniMax.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::MiniMax.AutoSDKServerConfiguration();
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::MiniMax.SourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::MiniMax.MusicSourceGenerationContext.Default);
 
         /// <summary>
         ///
