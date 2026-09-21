@@ -6,7 +6,7 @@ namespace MiniMax
     public partial class SpeechClient
     {
 
-        private static readonly global::MiniMax.AutoSDKServer[] s_CreateTextToSpeechServers = new global::MiniMax.AutoSDKServer[]
+        private static readonly global::MiniMax.AutoSDKServer[] s_CreateTextToSpeechAsStreamServers = new global::MiniMax.AutoSDKServer[]
         {            new global::MiniMax.AutoSDKServer(
                 id: "https-api-minimax-io",
                 name: "MiniMax International Production API",
@@ -20,7 +20,7 @@ namespace MiniMax
         };
 
 
-        private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateTextToSpeechSecurityRequirement0 =
+        private static readonly global::MiniMax.EndPointSecurityRequirement s_CreateTextToSpeechAsStreamSecurityRequirement0 =
             new global::MiniMax.EndPointSecurityRequirement
             {
                 Authorizations = new global::MiniMax.EndPointAuthorizationRequirement[]
@@ -34,26 +34,21 @@ namespace MiniMax
                     },
                 },
             };
-        private static readonly global::MiniMax.EndPointSecurityRequirement[] s_CreateTextToSpeechSecurityRequirements =
+        private static readonly global::MiniMax.EndPointSecurityRequirement[] s_CreateTextToSpeechAsStreamSecurityRequirements =
             new global::MiniMax.EndPointSecurityRequirement[]
-            {                s_CreateTextToSpeechSecurityRequirement0,
+            {                s_CreateTextToSpeechAsStreamSecurityRequirement0,
             };
-        partial void PrepareCreateTextToSpeechArguments(
+        partial void PrepareCreateTextToSpeechAsStreamArguments(
             global::System.Net.Http.HttpClient httpClient,
             global::MiniMax.TextToSpeechRequest request);
-        partial void PrepareCreateTextToSpeechRequest(
+        partial void PrepareCreateTextToSpeechAsStreamRequest(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpRequestMessage httpRequestMessage,
             global::MiniMax.TextToSpeechRequest request);
-        partial void ProcessCreateTextToSpeechResponse(
+        partial void ProcessCreateTextToSpeechAsStreamResponse(
             global::System.Net.Http.HttpClient httpClient,
             global::System.Net.Http.HttpResponseMessage httpResponseMessage);
 
-        partial void ProcessCreateTextToSpeechResponseContent(
-            global::System.Net.Http.HttpClient httpClient,
-            global::System.Net.Http.HttpResponseMessage httpResponseMessage,
-            ref string content);
-
         /// <summary>
         /// Synthesize speech.
         /// </summary>
@@ -61,33 +56,11 @@ namespace MiniMax
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::MiniMax.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::MiniMax.TextToSpeechResponse> CreateTextToSpeechAsync(
+        public async global::System.Collections.Generic.IAsyncEnumerable<global::MiniMax.TextToSpeechResponse> CreateTextToSpeechAsStreamAsync(
 
             global::MiniMax.TextToSpeechRequest request,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
-        {
-            var __response = await CreateTextToSpeechAsResponseAsync(
-
-                request: request,
-                requestOptions: requestOptions,
-                cancellationToken: cancellationToken
-            ).ConfigureAwait(false);
-
-            return __response.Body;
-        }
-        /// <summary>
-        /// Synthesize speech.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
-        /// <param name="cancellationToken">The token to cancel the operation with</param>
-        /// <exception cref="global::MiniMax.ApiException"></exception>
-        public async global::System.Threading.Tasks.Task<global::MiniMax.AutoSDKHttpResponse<global::MiniMax.TextToSpeechResponse>> CreateTextToSpeechAsResponseAsync(
-
-            global::MiniMax.TextToSpeechRequest request,
-            global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
+            [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
@@ -95,7 +68,7 @@ namespace MiniMax
             {
                 Model = request.Model,
                 Text = request.Text,
-                Stream = false,
+                Stream = true,
                 StreamOptions = request.StreamOptions,
                 VoiceSetting = request.VoiceSetting,
                 AudioSetting = request.AudioSetting,
@@ -110,15 +83,15 @@ namespace MiniMax
             };
             PrepareArguments(
                 client: HttpClient);
-            PrepareCreateTextToSpeechArguments(
+            PrepareCreateTextToSpeechAsStreamArguments(
                 httpClient: HttpClient,
                 request: request);
 
 
             var __authorizations = global::MiniMax.EndPointSecurityResolver.ResolveAuthorizations(
                 availableAuthorizations: Authorizations,
-                securityRequirements: s_CreateTextToSpeechSecurityRequirements,
-                operationName: "CreateTextToSpeechAsync");
+                securityRequirements: s_CreateTextToSpeechAsStreamSecurityRequirements,
+                operationName: "CreateTextToSpeechAsStreamAsync");
 
             using var __timeoutCancellationTokenSource = global::MiniMax.AutoSDKRequestOptionsSupport.CreateTimeoutCancellationTokenSource(
                 clientOptions: Options,
@@ -140,7 +113,7 @@ namespace MiniMax
                             var __pathBuilder = new global::MiniMax.PathBuilder(
                                 path: "/v1/t2a_v2",
                                 baseUri: ResolveBaseUri(
-                                servers: s_CreateTextToSpeechServers,
+                                servers: s_CreateTextToSpeechAsStreamServers,
                                 defaultBaseUrl: "https://api.minimax.io/"));
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -157,7 +130,7 @@ namespace MiniMax
 
                 __httpRequest.Headers.TryAddWithoutValidation(
                     "Accept",
-                    "application/json");
+                    "text/event-stream");
 
             foreach (var __authorization in __authorizations)
             {
@@ -189,7 +162,7 @@ namespace MiniMax
                 PrepareRequest(
                     client: HttpClient,
                     request: __httpRequest);
-                PrepareCreateTextToSpeechRequest(
+                PrepareCreateTextToSpeechAsStreamRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
                     request: request);
@@ -209,8 +182,8 @@ namespace MiniMax
                     await global::MiniMax.AutoSDKRequestOptionsSupport.OnBeforeRequestAsync(
                             clientOptions: Options,
                             context: global::MiniMax.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateTextToSpeech",
-                                methodName: "CreateTextToSpeechAsync",
+                                operationId: "CreateTextToSpeechAsStream",
+                                methodName: "CreateTextToSpeechAsStreamAsync",
                                 pathTemplate: "\"/v1/t2a_v2\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
@@ -229,7 +202,7 @@ namespace MiniMax
                     {
                         __response = await HttpClient.SendAsync(
                 request: __httpRequest,
-                completionOption: global::System.Net.Http.HttpCompletionOption.ResponseContentRead,
+                completionOption: global::System.Net.Http.HttpCompletionOption.ResponseHeadersRead,
                 cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
@@ -243,8 +216,8 @@ namespace MiniMax
                         await global::MiniMax.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::MiniMax.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateTextToSpeech",
-                                methodName: "CreateTextToSpeechAsync",
+                                operationId: "CreateTextToSpeechAsStream",
+                                methodName: "CreateTextToSpeechAsStreamAsync",
                                 pathTemplate: "\"/v1/t2a_v2\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
@@ -284,8 +257,8 @@ namespace MiniMax
                         await global::MiniMax.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::MiniMax.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateTextToSpeech",
-                                methodName: "CreateTextToSpeechAsync",
+                                operationId: "CreateTextToSpeechAsStream",
+                                methodName: "CreateTextToSpeechAsStreamAsync",
                                 pathTemplate: "\"/v1/t2a_v2\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
@@ -324,7 +297,7 @@ namespace MiniMax
                 ProcessResponse(
                     client: HttpClient,
                     response: __response);
-                ProcessCreateTextToSpeechResponse(
+                ProcessCreateTextToSpeechAsStreamResponse(
                     httpClient: HttpClient,
                     httpResponseMessage: __response);
                 if (__response.IsSuccessStatusCode)
@@ -332,8 +305,8 @@ namespace MiniMax
                     await global::MiniMax.AutoSDKRequestOptionsSupport.OnAfterSuccessAsync(
                             clientOptions: Options,
                             context: global::MiniMax.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateTextToSpeech",
-                                methodName: "CreateTextToSpeechAsync",
+                                operationId: "CreateTextToSpeechAsStream",
+                                methodName: "CreateTextToSpeechAsStreamAsync",
                                 pathTemplate: "\"/v1/t2a_v2\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
@@ -354,8 +327,8 @@ namespace MiniMax
                     await global::MiniMax.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::MiniMax.AutoSDKRequestOptionsSupport.CreateHookContext(
-                                operationId: "CreateTextToSpeech",
-                                methodName: "CreateTextToSpeechAsync",
+                                operationId: "CreateTextToSpeechAsStream",
+                                methodName: "CreateTextToSpeechAsStreamAsync",
                                 pathTemplate: "\"/v1/t2a_v2\"",
                                 httpMethod: "POST",
                                 baseUri: BaseUri,
@@ -372,92 +345,63 @@ namespace MiniMax
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
 
-                            if (__effectiveReadResponseAsString)
+                            try
                             {
-                                var __content = await __response.Content.ReadAsStringAsync(
-                #if NET5_0_OR_GREATER
-                                    __effectiveCancellationToken
-                #endif
-                                ).ConfigureAwait(false);
-
-                                ProcessResponseContent(
-                                    client: HttpClient,
-                                    response: __response,
-                                    content: ref __content);
-                                ProcessCreateTextToSpeechResponseContent(
-                                    httpClient: HttpClient,
-                                    httpResponseMessage: __response,
-                                    content: ref __content);
-
-                                try
-                                {
-                                    __response.EnsureSuccessStatusCode();
-
-                                    var __value = global::MiniMax.TextToSpeechResponse.FromJson(__content, JsonSerializerContext) ??
-                                        throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
-                                    return new global::MiniMax.AutoSDKHttpResponse<global::MiniMax.TextToSpeechResponse>(
-                                        statusCode: __response.StatusCode,
-                                        headers: global::MiniMax.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
-                                }
-                                catch (global::System.Exception __ex)
-                                {
-                                    throw global::MiniMax.ApiException.Create(
-                                        statusCode: __response.StatusCode,
-                                        message: __content ?? __response.ReasonPhrase ?? string.Empty,
-                                        innerException: __ex,
-                                        responseBody: __content,
-                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
-                                            __response.Headers,
-                                            h => h.Key,
-                                            h => h.Value));
-                                }
+                                __response.EnsureSuccessStatusCode();
                             }
-                            else
+                            catch (global::System.Net.Http.HttpRequestException __ex)
                             {
+                                string? __content = null;
                                 try
                                 {
-                                    __response.EnsureSuccessStatusCode();
-                                    using var __content = await __response.Content.ReadAsStreamAsync(
+                                    __content = await __response.Content.ReadAsStringAsync(
                 #if NET5_0_OR_GREATER
                                         __effectiveCancellationToken
                 #endif
                                     ).ConfigureAwait(false);
-
-                                    var __value = await global::MiniMax.TextToSpeechResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
-                                        throw new global::System.InvalidOperationException("Response deserialization failed.");
-                                    return new global::MiniMax.AutoSDKHttpResponse<global::MiniMax.TextToSpeechResponse>(
-                                        statusCode: __response.StatusCode,
-                                        headers: global::MiniMax.AutoSDKHttpResponse.CreateHeaders(__response),
-                                        requestUri: __response.RequestMessage?.RequestUri,
-                                        body: __value);
                                 }
-                                catch (global::System.Exception __ex)
+                                catch (global::System.Exception)
                                 {
-                                    string? __content = null;
-                                    try
-                                    {
-                                        __content = await __response.Content.ReadAsStringAsync(
-                #if NET5_0_OR_GREATER
-                                            __effectiveCancellationToken
-                #endif
-                                        ).ConfigureAwait(false);
-                                    }
-                                    catch (global::System.Exception)
-                                    {
-                                    }
-
-                                    throw global::MiniMax.ApiException.Create(
-                                        statusCode: __response.StatusCode,
-                                        message: __content ?? __response.ReasonPhrase ?? string.Empty,
-                                        innerException: __ex,
-                                        responseBody: __content,
-                                        responseHeaders: global::System.Linq.Enumerable.ToDictionary(
-                                            __response.Headers,
-                                            h => h.Key,
-                                            h => h.Value));
                                 }
+
+                                throw global::MiniMax.ApiException.Create(
+                                    statusCode: __response.StatusCode,
+                                    message: __content ?? __response.ReasonPhrase ?? string.Empty,
+                                    innerException: __ex,
+                                    responseBody: __content,
+                                    responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                        __response.Headers,
+                                        h => h.Key,
+                                        h => h.Value));
+                            }
+
+                            using var __stream = await __response.Content.ReadAsStreamAsync(
+                #if NET5_0_OR_GREATER
+                                __effectiveCancellationToken
+                #endif
+                            ).ConfigureAwait(false);
+
+                            await foreach (var __sseEvent in global::System.Net.ServerSentEvents.SseParser
+                                .Create(__stream).EnumerateAsync(__effectiveCancellationToken))
+                            {
+                                var __content = __sseEvent.Data;
+                                if (__content == "[DONE]")
+                                {
+                                    yield break;
+                                }
+
+                                var __streamedResponse = global::MiniMax.TextToSpeechResponse.FromJson(__content, JsonSerializerContext) ??
+                                                       throw global::MiniMax.ApiException.Create(
+                                                           statusCode: __response.StatusCode,
+                                                           message: $"Response deserialization failed for \"{__content}\" ",
+                                                           innerException: null,
+                                                           responseBody: __content,
+                                                           responseHeaders: global::System.Linq.Enumerable.ToDictionary(
+                                                               __response.Headers,
+                                                               h => h.Key,
+                                                               h => h.Value));
+
+                                yield return __streamedResponse;
                             }
 
                 }
@@ -498,7 +442,7 @@ namespace MiniMax
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::System.InvalidOperationException"></exception>
-        public async global::System.Threading.Tasks.Task<global::MiniMax.TextToSpeechResponse> CreateTextToSpeechAsync(
+        public async global::System.Collections.Generic.IAsyncEnumerable<global::MiniMax.TextToSpeechResponse> CreateTextToSpeechAsStreamAsync(
             string model,
             string text,
             global::MiniMax.TtsVoiceSetting voiceSetting,
@@ -513,13 +457,13 @@ namespace MiniMax
             global::MiniMax.TextToSpeechRequestOutputFormat? outputFormat = default,
             bool? aigcWatermark = default,
             global::MiniMax.AutoSDKRequestOptions? requestOptions = default,
-            global::System.Threading.CancellationToken cancellationToken = default)
+            [global::System.Runtime.CompilerServices.EnumeratorCancellation] global::System.Threading.CancellationToken cancellationToken = default)
         {
             var __request = new global::MiniMax.TextToSpeechRequest
             {
                 Model = model,
                 Text = text,
-                Stream = false,
+                Stream = true,
                 StreamOptions = streamOptions,
                 VoiceSetting = voiceSetting,
                 AudioSetting = audioSetting,
@@ -533,10 +477,15 @@ namespace MiniMax
                 AigcWatermark = aigcWatermark,
             };
 
-            return await CreateTextToSpeechAsync(
+            var __enumerable = CreateTextToSpeechAsStreamAsync(
                 request: __request,
                 requestOptions: requestOptions,
-                cancellationToken: cancellationToken).ConfigureAwait(false);
+                cancellationToken: cancellationToken);
+
+            await foreach (var __response in __enumerable)
+            {
+                yield return __response;
+            }
         }
     }
 }

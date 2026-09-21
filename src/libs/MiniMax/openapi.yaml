@@ -216,6 +216,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TextToSpeechResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/TextToSpeechResponse'
   /v1/t2a_async_v2:
     post:
       tags:
