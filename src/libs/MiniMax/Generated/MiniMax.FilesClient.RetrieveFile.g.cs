@@ -121,7 +121,7 @@ namespace MiniMax
                                 servers: s_RetrieveFileServers,
                                 defaultBaseUrl: "https://api.minimax.io/"));
                             __pathBuilder
-                                .AddRequiredParameter("file_id", fileId.ToString()!)
+                                .AddRequiredParameter("file_id", fileId.ToString() ?? throw new global::System.InvalidOperationException("A required query parameter returned null from ToString()."))
                                 ;
                             var __path = __pathBuilder.ToString();
                 __path = global::MiniMax.AutoSDKRequestOptionsSupport.AppendQueryParameters(
@@ -163,7 +163,7 @@ namespace MiniMax
                 PrepareRetrieveFileRequest(
                     httpClient: HttpClient,
                     httpRequestMessage: __httpRequest,
-                    fileId: fileId!);
+                    fileId: fileId);
 
                 return __httpRequest;
             }
@@ -185,7 +185,7 @@ namespace MiniMax
                                 pathTemplate: "\"/v1/files/retrieve\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: null,
                                 clientOptions: Options,
@@ -219,7 +219,7 @@ namespace MiniMax
                                 pathTemplate: "\"/v1/files/retrieve\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: null,
                                 exception: __exception,
                                 clientOptions: Options,
@@ -260,7 +260,7 @@ namespace MiniMax
                                 pathTemplate: "\"/v1/files/retrieve\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -308,7 +308,7 @@ namespace MiniMax
                                 pathTemplate: "\"/v1/files/retrieve\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
@@ -330,7 +330,7 @@ namespace MiniMax
                                 pathTemplate: "\"/v1/files/retrieve\"",
                                 httpMethod: "GET",
                                 baseUri: BaseUri,
-                                request: __httpRequest!,
+                                request: __httpRequest ?? throw new global::System.InvalidOperationException("The HTTP request was not created before invoking a request hook."),
                                 response: __response,
                                 exception: null,
                                 clientOptions: Options,
