@@ -496,9 +496,15 @@ components:
       type: object
       properties:
         success_count:
-          type: integer
+          description: "Returned as a string by the API; numeric schema retained for clients that emit numbers."
+          oneOf:
+            - type: integer
+            - type: string
         failed_count:
-          type: integer
+          description: "Returned as a string by the API; numeric schema retained for clients that emit numbers."
+          oneOf:
+            - type: integer
+            - type: string
     ImageGenerationRequest:
       type: object
       required:
