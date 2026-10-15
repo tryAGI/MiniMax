@@ -23,6 +23,7 @@ namespace MiniMax
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationData))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<string>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationMetadata))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.OneOf<int?, string>), TypeInfoPropertyName = "OneOfInt32String2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::MiniMax.ImageSubjectReference>))]
@@ -33,6 +34,7 @@ namespace MiniMax
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(long?))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(float?))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageSubjectReferenceType?), TypeInfoPropertyName = "NullableImageSubjectReferenceType2")]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.OneOf<int?, string>?), TypeInfoPropertyName = "NullableOneOfInt32String2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int?))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationRequestAspectRatio?), TypeInfoPropertyName = "NullableImageGenerationRequestAspectRatio2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationRequestResponseFormat?), TypeInfoPropertyName = "NullableImageGenerationRequestResponseFormat2")]
@@ -86,6 +88,8 @@ namespace MiniMax
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         public static void AddConverters(global::System.Text.Json.JsonSerializerOptions options)
         {
+            options.Converters.Add(new global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>());
+            options.Converters.Add(new global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>());
             options.Converters.Add(new global::MiniMax.JsonConverters.UnixTimestampJsonConverter());
             options.Converters.Add(new LazyEnumJsonConverterFactory());
         }

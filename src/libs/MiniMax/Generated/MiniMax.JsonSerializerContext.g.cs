@@ -115,6 +115,10 @@ namespace MiniMax
 
             typeof(global::MiniMax.JsonConverters.FileDeleteRequestPurposeNullableJsonConverter),
 
+            typeof(global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>),
+
+            typeof(global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>),
+
             typeof(global::MiniMax.JsonConverters.UnixTimestampJsonConverter),
         })]
     #pragma warning restore CS3016
@@ -130,6 +134,7 @@ namespace MiniMax
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationData))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<string>))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationMetadata))]
+    [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.OneOf<int?, string>), TypeInfoPropertyName = "OneOfInt32String2")]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(int))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::MiniMax.ImageGenerationRequest))]
     [global::System.Text.Json.Serialization.JsonSerializable(typeof(global::System.Collections.Generic.IList<global::MiniMax.ImageSubjectReference>))]

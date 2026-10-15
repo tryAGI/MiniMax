@@ -9,16 +9,18 @@ namespace MiniMax
     public sealed partial class ImageGenerationMetadata
     {
         /// <summary>
-        ///
+        /// Returned as a string by the API; numeric schema retained for clients that emit numbers.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("success_count")]
-        public int? SuccessCount { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>))]
+        public global::MiniMax.OneOf<int?, string>? SuccessCount { get; set; }
 
         /// <summary>
-        ///
+        /// Returned as a string by the API; numeric schema retained for clients that emit numbers.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("failed_count")]
-        public int? FailedCount { get; set; }
+        [global::System.Text.Json.Serialization.JsonConverter(typeof(global::MiniMax.JsonConverters.OneOfJsonConverter<int?, string>))]
+        public global::MiniMax.OneOf<int?, string>? FailedCount { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -29,14 +31,18 @@ namespace MiniMax
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageGenerationMetadata" /> class.
         /// </summary>
-        /// <param name="successCount"></param>
-        /// <param name="failedCount"></param>
+        /// <param name="successCount">
+        /// Returned as a string by the API; numeric schema retained for clients that emit numbers.
+        /// </param>
+        /// <param name="failedCount">
+        /// Returned as a string by the API; numeric schema retained for clients that emit numbers.
+        /// </param>
 #if NET7_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public ImageGenerationMetadata(
-            int? successCount,
-            int? failedCount)
+            global::MiniMax.OneOf<int?, string>? successCount,
+            global::MiniMax.OneOf<int?, string>? failedCount)
         {
             this.SuccessCount = successCount;
             this.FailedCount = failedCount;
