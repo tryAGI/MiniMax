@@ -38,14 +38,14 @@ namespace MiniMax
 
         internal global::MiniMax.AutoSDKServerConfiguration AutoSDKServerConfiguration { get; set; } = new global::MiniMax.AutoSDKServerConfiguration();
 
-        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::MiniMax.FilesSourceGenerationContext.Default);
+        internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext>? JsonSerializerContextProvider { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
-            get => JsonSerializerContextProvider.Value;
+            get => JsonSerializerContextProvider?.Value ?? global::MiniMax.FilesSourceGenerationContext.Default;
             set => JsonSerializerContextProvider = new(() => value);
         }
 
